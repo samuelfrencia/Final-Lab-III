@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-          <!--NAVBAR-->
+    <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
         <div class="container-fluid">
-            <a href="login.html"><img class="imgLogoNavBar" src="proyectofinal/img/icons/WorldCrypto.png" alt="Logo"></a>
+            <a href="login.html"><img class="imgLogoNavBar" src="../assets/WorldCrypto.png" alt="Logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
                 aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -26,7 +26,6 @@
             </div>
         </div>
     </nav>
-
     <!--INICIO SECION-->
     <div class="container">
         <div class="card ">
@@ -42,7 +41,6 @@
             </div>
         </div>
     </div>
-
     <!--FOOTER-->
     <footer class="colorFooter">
         <div class="containerFooter">
@@ -77,9 +75,6 @@
     </footer>
   </div>
 </template>
-
-
-
 
 <style>
 *{
@@ -264,8 +259,8 @@ table {
 #miSelect:focus {
     border-color: black;
   }
-  
-</style>
+  </style>
+
 
 <script>
 // @ is an alias to /src
@@ -277,3 +272,4 @@ export default {
   }
 }
 </script>
+
