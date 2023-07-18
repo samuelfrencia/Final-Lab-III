@@ -1,9 +1,9 @@
 <template>
-  <div class="home">
+  <div class="login">
     <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
         <div class="container-fluid">
-            <a href="login.html"><img class="imgLogoNavBar" src="../assets/WorldCrypto.png" alt="Logo"></a>
+            <router-link to="/"><img class="imgLogoNavBar" src="../assets/WorldCrypto.png" alt="Logo"></router-link>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
                 aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -11,16 +11,16 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="inicio.html">Inicio</a>
+                        <a class="nav-link disabled" href="">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="compra.html">Comprar/Vender</a>
+                        <a class="nav-link disabled" href="">Comprar/Vender</a>
                     </li>                    
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="misCrypto.html">Mis Crypto</a>
+                        <a class="nav-link disabled" href="">Mis Crypto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="movimientos.html">Movimientos</a>
+                        <a class="nav-link disabled" href="">Movimientos</a>
                     </li>
                 </ul>
             </div>
@@ -63,9 +63,9 @@
                 <div class="footer-column">
                     <h3>Síguenos</h3>
                     <ul class="social-icons">
-                        <li><a href="#"><img class="redes" src="img/face.png" alt=""></a></li>
-                        <li><a href="#"><img class="redes" src="img/tw.png" alt=""></a></li>
-                        <li><a href="#"><img class="redes" src="img/igg.png" alt=""></a></li>
+                        <li><a href="www.facebook.com.ar" target="_blank" ><img class="redes" src="../assets/face.png" alt=""></a></li>
+                        <li><a href="www.twitter.com.ar" target="_blank"><img class="redes" src="../assets/tw.png" alt=""></a></li>
+                        <li><a href="www.instagram.com.ar" target="_blank"><img class="redes" src="../assets/igg.png" alt=""></a></li>
                     </ul>
                 </div>
             </div>
