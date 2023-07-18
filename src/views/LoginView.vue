@@ -1,38 +1,31 @@
 <template>
     <div>
-      <!--NAVBAR-->
-      <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-        <div class="container-fluid">
-          <a href="login.html"><img class="imgLogoNavBar" src="../assets/WorldCrypto.png" alt="Logo"></a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarTogglerDemo03"
-            aria-controls="navbarTogglerDemo03"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link disabled" href="inicio.html">Inicio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="compra.html">Comprar/Vender</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="misCrypto.html">Mis Crypto</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="movimientos.html">Movimientos</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+  <!--NAVBAR-->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <router-link to="/login" class="nav-link"><img class="imgLogoNavBar" src="../assets/WorldCrypto.png" alt="Logo"></router-link>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <router-link :to="{ path: '/login' }" :disabled="enlaceInicioDeshabilitado" class="nav-link">Inicio</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link :to="{ path: '/compraventa' }" :disabled="enlaceCompraVentaDeshabilitado" class="nav-link">Comprar/Vender</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link :to="{ path: '/misCrypto' }" :disabled="enlaceMisCryptoDeshabilitado" class="nav-link">Mis Crypto</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link :to="{ path: '/movimientos' }" :disabled="enlaceMovimientosDeshabilitado" class="nav-link">Movimientos</router-link>
+      </li>
+    </ul>
+      </div>
+    </div>
+  </nav>
   
       <!--INICIO SECION-->
       <div class="container">
@@ -89,7 +82,11 @@
   export default {
     data() {
       return {
-        usuario: ''
+        usuario: '',
+        enlaceInicioDeshabilitado: true, // Cambia esta variable según tus necesidades
+        enlaceCompraVentaDeshabilitado: true, // Cambia esta variable según tus necesidades
+        enlaceMisCryptoDeshabilitado: true, // Cambia esta variable según tus necesidades
+        enlaceMovimientosDeshabilitado: true, // Cambia esta variable según tus necesidades
       };
     },
     methods: {

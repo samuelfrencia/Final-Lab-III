@@ -1,39 +1,33 @@
 <template>
     <div>
-      <!--NAVBAR-->
-      <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-        <div class="container-fluid">
-          <a href="inicio.html"><img class="imgLogoNavBar" src="../assets/WorldCrypto.png" alt="Logo"></a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarTogglerDemo03"
-            aria-controls="navbarTogglerDemo03"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link " href="inicio.html">Inicio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="compra.html">Comprar/Vender</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="misCrypto.html">Mis Crypto</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="movimientos.html">Movimientos</a>
-              </li>
-            </ul>
-            <a class="cerrarSesion" href="login.html">Cerrar sesion</a>
-          </div>
-        </div>
-      </nav>
+
+  <!--NAVBAR-->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <router-link to="/inicio" class="nav-link"><img class="imgLogoNavBar" src="../assets/WorldCrypto.png" alt="Logo"></router-link>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <router-link to="/inicio" class="nav-link">Inicio</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/compraventa" class="nav-link">Comprar/Vender</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/misCrypto" class="nav-link">Mis Crypto</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/movimientos" class="nav-link">Movimientos</router-link>
+          </li>
+        </ul>
+        <router-link to="/login" class="cerrarSesion">Cerrar sesión</router-link>
+      </div>
+    </div>
+  </nav>
   
       <!--INICIO SECION-->
       <div class="muestraDatos">
@@ -68,38 +62,38 @@
         </div>
       </div>
   
-      <!--FOOTER-->
-      <footer class="colorFooter">
-        <div class="containerFooter">
-          <div class="footer-columns">
-            <div class="footer-column">
-              <h3>Enlaces</h3>
-              <ul>
-                <li><a href="inicio.html">Inicio</a></li>
-                <li><a href="compra.html">Comprar/Vender</a></li>
-                <li><a href="misCrypto.html">Mis Cryptos</a></li>
-                <li><a href="movimientos.html">Movimientos</a></li>
-              </ul>
-            </div>
-            <div class="footer-column">
-              <h3>Contacto</h3>
-              <p>Dirección: Brinkmann Cordoba</p>
-              <p>Teléfono: 3562-525252</p>
-              <p>Email: worldcrypto@cryptos.com</p>
-            </div>
-            <div class="footer-column">
-              <h3>Síguenos</h3>
-              <ul class="social-icons">
-                <li><a href="#"><img class="redes" src="../assets/face.png" alt=""></a></li>
-                <li><a href="#"><img class="redes" src="../assets/tw.png" alt=""></a></li>
-                <li><a href="#"><img class="redes" src="../assets/igg.png" alt=""></a></li>
-              </ul>
-            </div>
-          </div>
-          <hr />
-          <p class="footer-text">Derechos de autor © 2023. Todos los derechos reservados.</p>
+  <!--FOOTER-->
+  <footer class="colorFooter">
+    <div class="containerFooter">
+      <div class="footer-columns">
+        <div class="footer-column">
+          <h3>Enlaces</h3>
+          <ul>
+            <li><router-link to="/inicio">Inicio</router-link></li>
+            <li><router-link to="/compraventa">Comprar/Vender</router-link></li>
+            <li><router-link to="/miscrypto">Mis Cryptos</router-link></li>
+            <li><router-link to="/movimientos">Movimientos</router-link></li>
+          </ul>
         </div>
-      </footer>
+        <div class="footer-column">
+          <h3>Contacto</h3>
+          <p>Dirección: Brinkmann Cordoba</p>
+          <p>Teléfono: 3562-525252</p>
+          <p>Email: worldcrypto@cryptos.com</p>
+        </div>
+        <div class="footer-column">
+          <h3>Síguenos</h3>
+          <ul class="social-icons">
+            <li><a href="#"><img class="redes" src="../assets/face.png" alt=""></a></li>
+            <li><a href="#"><img class="redes" src="../assets/tw.png" alt=""></a></li>
+            <li><a href="#"><img class="redes" src="../assets/igg.png" alt=""></a></li>
+          </ul>
+        </div>
+      </div>
+      <hr />
+      <p class="footer-text">Derechos de autor © 2023. Todos los derechos reservados.</p>
+    </div>
+  </footer>
     </div>
   </template>
   

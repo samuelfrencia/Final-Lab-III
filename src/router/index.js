@@ -3,7 +3,7 @@ import LoginView from '../views/LoginView.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     name: 'login',
     component: LoginView
   },
@@ -14,6 +14,30 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/InicioView.vue')
+  },
+  {
+    path: '/compraventa',
+    name: 'compraventa',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/CompraVentaView.vue')
+  },
+  {
+    path: '/miscrypto',
+    name: 'miscrypto',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/MisCryptoView.vue')
+  },
+  {
+    path: '/movimientos',
+    name: 'movimientos',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/MovimientosView.vue')
   }
 ]
 
