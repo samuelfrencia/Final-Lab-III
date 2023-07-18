@@ -20,7 +20,7 @@
         <router-link :to="{ path: '/misCrypto' }" :disabled="enlaceMisCryptoDeshabilitado" class="nav-link">Mis Crypto</router-link>
       </li>
       <li class="nav-item">
-        <router-link :to="{ path: '/movimientos' }" :disabled="enlaceMovimientosDeshabilitado" class="nav-link">Movimientos</router-link>
+        <router-link :to="{ path: '/movimientos' }" :disabled="{enlaceMovimientosDeshabilitado}" class="nav-link">Movimientos</router-link>
       </li>
     </ul>
       </div>
