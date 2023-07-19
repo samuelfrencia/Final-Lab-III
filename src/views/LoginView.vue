@@ -10,19 +10,19 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <router-link :to="{ path: '/login' }" :disabled="enlaceInicioDeshabilitado" class="nav-link">Inicio</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link :to="{ path: '/compraventa' }" :disabled="enlaceCompraVentaDeshabilitado" class="nav-link">Comprar/Vender</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link :to="{ path: '/misCrypto' }" :disabled="enlaceMisCryptoDeshabilitado" class="nav-link">Mis Crypto</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link :to="{ path: '/movimientos' }" :disabled="{enlaceMovimientosDeshabilitado}" class="nav-link">Movimientos</router-link>
-      </li>
-    </ul>
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link">Inicio</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link">Comprar/Vender</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link">Mis Crypto</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link">Movimientos</router-link>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -43,38 +43,38 @@
         </div>
       </div>
   
-      <!--FOOTER-->
-      <footer class="colorFooter">
-        <div class="containerFooter">
-          <div class="footer-columns">
-            <div class="footer-column">
-              <h3>Enlaces</h3>
-              <ul>
-                <li><a href="login.html">Inicio</a></li>
-                <li><a href="login.html">Comprar/Vender</a></li>
-                <li><a href="login.html">Mis Cryptos</a></li>
-                <li><a href="login.html">Movimientos</a></li>
-              </ul>
-            </div>
-            <div class="footer-column">
-              <h3>Contacto</h3>
-              <p>Dirección: Brinkmann Cordoba</p>
-              <p>Teléfono: 3562-525252</p>
-              <p>Email: worldcrypto@cryptos.com</p>
-            </div>
-            <div class="footer-column">
-              <h3>Síguenos</h3>
-              <ul class="social-icons">
-                <li><a href="#"><img class="redes" src="img/face.png" alt=""></a></li>
-                <li><a href="#"><img class="redes" src="img/tw.png" alt=""></a></li>
-                <li><a href="#"><img class="redes" src="img/igg.png" alt=""></a></li>
-              </ul>
-            </div>
-          </div>
-          <hr />
-          <p class="footer-text">Derechos de autor © 2023. Todos los derechos reservados.</p>
+  <!--FOOTER-->
+  <footer class="colorFooter">
+    <div class="containerFooter">
+      <div class="footer-columns">
+        <div class="footer-column">
+          <h3>Enlaces</h3>
+          <ul>
+            <li><router-link to="/login">Inicio</router-link></li>
+            <li><router-link to="/login">Comprar/Vender</router-link></li>
+            <li><router-link to="/login">Mis Cryptos</router-link></li>
+            <li><router-link to="/login">Movimientos</router-link></li>
+          </ul>
         </div>
-      </footer>
+        <div class="footer-column">
+          <h3>Contacto</h3>
+          <p>Dirección: Brinkmann Cordoba</p>
+          <p>Teléfono: 3562-525252</p>
+          <p>Email: worldcrypto@cryptos.com</p>
+        </div>
+        <div class="footer-column">
+          <h3>Síguenos</h3>
+          <ul class="social-icons">
+            <li><a href="https://www.facebook.com/"  target="_blank"><img class="redes" src="../assets/face.png" alt=""></a></li>
+            <li><a href="https://twitter.com/i/flow/login?redirect_after_login=%2Fhome" target="_blank"><img class="redes" src="../assets/tw.png" alt=""></a></li>
+            <li><a href="https://www.instagram.com/" target="_blank"><img class="redes" src="../assets/igg.png" alt=""></a></li>
+          </ul>
+        </div>
+      </div>
+      <hr />
+      <p class="footer-text">Derechos de autor © 2023. Todos los derechos reservados.</p>
+    </div>
+  </footer>
     </div>
   </template>
   
@@ -82,11 +82,7 @@
   export default {
     data() {
       return {
-        usuario: '',
-        enlaceInicioDeshabilitado: true, // Cambia esta variable según tus necesidades
-        enlaceCompraVentaDeshabilitado: true, // Cambia esta variable según tus necesidades
-        enlaceMisCryptoDeshabilitado: true, // Cambia esta variable según tus necesidades
-        enlaceMovimientosDeshabilitado: true, // Cambia esta variable según tus necesidades
+        usuario: ''
       };
     },
     methods: {

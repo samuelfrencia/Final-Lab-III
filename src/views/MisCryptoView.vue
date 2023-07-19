@@ -83,9 +83,9 @@
         <div class="footer-column">
           <h3>Síguenos</h3>
           <ul class="social-icons">
-            <li><a href="#"><img class="redes" src="../assets/face.png" alt=""></a></li>
-            <li><a href="#"><img class="redes" src="../assets/tw.png" alt=""></a></li>
-            <li><a href="#"><img class="redes" src="../assets/igg.png" alt=""></a></li>
+            <li><a href="https://www.facebook.com/"  target="_blank"><img class="redes" src="../assets/face.png" alt=""></a></li>
+            <li><a href="https://twitter.com/i/flow/login?redirect_after_login=%2Fhome" target="_blank"><img class="redes" src="../assets/tw.png" alt=""></a></li>
+            <li><a href="https://www.instagram.com/" target="_blank"><img class="redes" src="../assets/igg.png" alt=""></a></li>
           </ul>
         </div>
       </div>
