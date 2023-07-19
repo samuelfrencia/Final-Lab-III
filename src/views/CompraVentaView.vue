@@ -29,50 +29,48 @@
       </div>
     </nav>
 
-    <div id="app">
-      <div class="muestraDatos">
-        <div class="row">
-          <div class="col-md-3"></div>
-          <div class="col-md-2 cardCompra">
-            <h3 style="text-align: center;">Compra</h3>
-            <input type="number" name="" id="" class="input-group-text"
-              style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-            <br>
-            <select class="form-select" id="miSelect" style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-              <option selected disabled>Cripto a comprar</option>
-              <option value="bitcoin">BITCOIN</option>
-              <option value="ethereum">ETHEREUM</option>
-              <option value="usdt">USDT</option>
-              <option value="dai">DAI</option>
-            </select>
-            <br>
-            <input type="number" name="" id="cantidadCompra" class="input-group-text" disabled style="width: 200px; "
-              placeholder="Precio total">
-            <br>
-            <button class="btnComprarVender" id="btnVender">Comprar</button>
-          </div>
-          <div class="col-md-2"></div>
-          <div class="col-md-2 cardCompra">
-            <h3 style="text-align: center;">Venta</h3>
-            <input type="number" name="" id="" class="input-group-text"
-              style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-            <br>
-
-            <select class="form-select" id="miSelect" style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-              <option selected disabled>Cripto a vender</option>
-              <option value="bitcoin">BITCOIN</option>
-              <option value="ethereum">ETHEREUM</option>
-              <option value="usdt">USDT</option>
-              <option value="dai">DAI</option>
-            </select>
-            <br>
-            <input type="number" name="" id="cantidadVenta" class="input-group-text" disabled style="width: 200px;"
-              placeholder="Precio total">
-            <br>
-            <button class="btnComprarVender" id="btnVender">Vender</button>
-          </div>
-          <div class="col-md-3"></div>
+    <div class="muestraDatos">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-2 cardCompra">
+          <h3 style="text-align: center;">Compra</h3>
+          <input type="number" name="" id="" class="input-group-text"
+            style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
+          <br>
+          <select class="form-select" id="miSelect" style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
+            <option selected disabled>Cripto a comprar</option>
+            <option value="bitcoin">BITCOIN</option>
+            <option value="ethereum">ETHEREUM</option>
+            <option value="usdt">USDT</option>
+            <option value="dai">DAI</option>
+          </select>
+          <br>
+          <input type="number" name="" id="cantidadCompra" class="input-group-text" disabled style="width: 200px; "
+            placeholder="Precio total">
+          <br>
+          <button class="btnComprarVender" id="btnVender">Comprar</button>
         </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2 cardCompra">
+          <h3 style="text-align: center;">Venta</h3>
+          <input type="number" name="" id="" class="input-group-text"
+            style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
+          <br>
+
+          <select class="form-select" id="miSelect" style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
+            <option selected disabled>Cripto a vender</option>
+            <option value="bitcoin">BITCOIN</option>
+            <option value="ethereum">ETHEREUM</option>
+            <option value="usdt">USDT</option>
+            <option value="dai">DAI</option>
+          </select>
+          <br>
+          <input type="number" name="" id="cantidadVenta" class="input-group-text" disabled style="width: 200px;"
+            placeholder="Precio total">
+          <br>
+          <button class="btnComprarVender" id="btnVender">Vender</button>
+        </div>
+        <div class="col-md-3"></div>
       </div>
     </div>
 
