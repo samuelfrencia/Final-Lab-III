@@ -37,20 +37,32 @@
           <h2 style="text-align: center;">Mi billetera</h2>
           <table>
             <tr>
-              <th>Cantidad</th>
               <th>Crypto</th>
-              <th>Venta</th>
+              <th>Cantidad</th>
+              <th>Precio compra</th>
               <th>Compra</th>
             </tr>
             <tr>
-              <td>1</td>
-              <td>ETHEREUM</td>
+              <td>Bitcoin</td>
+              <td>0</td>
               <td>515151</td>
               <td>51515151</td>
             </tr>
             <tr>
-              <td>5</td>
-              <td>BITCOIN</td>
+              <td>Ethereum</td>
+              <td>0</td>
+              <td>515151</td>
+              <td>51515151</td>
+            </tr>
+            <tr>
+              <td>Usdt</td>
+              <td>0</td>
+              <td>515151</td>
+              <td>51515151</td>
+            </tr>
+            <tr>
+              <td>Dai</td>
+              <td>0</td>
               <td>515151</td>
               <td>51515151</td>
             </tr>
@@ -60,7 +72,7 @@
       </div>
     </div>
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br>
 
     <!--FOOTER-->
     <footer class="colorFooter">
@@ -106,6 +118,8 @@ export default {
 };
 </script>
   
-<style>/* Estilos del archivo style.css */</style>
+<style>
+/* Estilos del archivo style.css */
+</style>
   
   
