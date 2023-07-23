@@ -31,34 +31,35 @@
     </nav>
 
     <!--INICIO SECION-->
-    <div class="muestraDatos">
-      <div class="row" style="align-items: top;">
-        <div class="col-1"></div>
-        <div class="cardDatosBalance col-md-3" style="padding: 20px;">
-          <h2>Balance estimado</h2>
-          <!--PONGO INPUT PARA MUESTRA, LO QUE QUIERO HACER ES CON UN p O h3 QUE MUESTRE MI SALDO TOTAL-->
-          <input type="number" disabled style="opacity: 50%;" v-model="saldoTotal" placeholder="sin saldo">
-        </div>
-        <div class="cardDatosCryptos col-md-7">
-          <h2 style="text-align: center;color: red;">Mercado crypto (Bitso)</h2>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Moneda</th>
-                <th scope="col">Precio compra</th>
-                <th scope="col">Precio compra final</th>
-                <th scope="col">Precio venta</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(dato, index) in datos" :key="index">
-                <td>{{ criptos[index] }}</td>
-                <td>{{ '$' + dato.ask }}</td>
-                <td>{{ '$' + dato.totalAsk }}</td>
-                <td>{{ '$' + dato.totalBid }}</td>
-              </tr>
-            </tbody>
-          </table>
+    <div class="container">
+      <div class="muestraDatos">
+        <div class="row" style="align-items: top;">
+          <div class="cardDatosBalance col-md-3" style="padding: 20px;">
+            <h2>Balance estimado</h2>
+            <!--PONGO INPUT PARA MUESTRA, LO QUE QUIERO HACER ES CON UN p O h3 QUE MUESTRE MI SALDO TOTAL-->
+            <input type="number" disabled style="opacity: 50%;" v-model="saldoTotal" placeholder="sin saldo">
+          </div>
+          <div class="cardDatosCryptos col-md-7">
+            <h2 style="text-align: center;color: red;">Mercado crypto (Bitso)</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Moneda</th>
+                  <th scope="col">Precio compra</th>
+                  <th scope="col">Precio compra final</th>
+                  <th scope="col">Precio venta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(dato, index) in datos" :key="index">
+                  <td>{{ criptos[index] }}</td>
+                  <td>{{ '$' + dato.ask }}</td>
+                  <td>{{ '$' + dato.totalAsk }}</td>
+                  <td>{{ '$' + dato.totalBid }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -164,5 +165,7 @@ export default {
 };
 </script>
   
-<style scoped>/* Agrega los estilos CSS aquí */</style>
+<style scoped>
+/* Agrega los estilos CSS aquí */
+</style>
   
