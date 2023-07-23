@@ -24,7 +24,7 @@
               <router-link to="/movimientos" class="nav-link">Movimientos</router-link>
             </li>
           </ul>
-          <router-link to="/login" class="cerrarSesion">Cerrar sesión</router-link>
+          <router-link to="/" class="cerrarSesion">Cerrar sesión</router-link>
         </div>
       </div>
     </nav>

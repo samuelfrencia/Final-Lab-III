@@ -1,44 +1,36 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
+import InicioView from '../views/InicioView.vue'
+import CompraVentaView from '../views/CompraVentaView.vue'
+import MisCryptoView from '../views/MisCryptoView.vue'
+import MovimientosView from '../views/MovimientosView.vue'
 
 const routes = [
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: LoginView
   },
   {
     path: '/inicio',
     name: 'inicio',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/InicioView.vue')
+    component: InicioView
   },
   {
     path: '/compraventa',
     name: 'compraventa',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/CompraVentaView.vue')
-  },
+    component: CompraVentaView
+  },  
   {
     path: '/miscrypto',
     name: 'miscrypto',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/MisCryptoView.vue')
+    component: MisCryptoView
   },
   {
     path: '/movimientos',
     name: 'movimientos',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/MovimientosView.vue')
-  }
+    component: MovimientosView
+  },
 ]
 
 const router = createRouter({
