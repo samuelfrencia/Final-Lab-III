@@ -33,7 +33,7 @@
     <div class="muestraDatos">
       <div class="row">
         <div class="col-md-1"></div>
-        <div class="cardDatosCryptos col-md-10">
+        <div class=" col-md-10">
           <h2 style="text-align: center;">Mi billetera</h2>
           <table>
             <tr>
@@ -72,7 +72,7 @@
       </div>
     </div>
 
-    <br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br>
 
     <!--FOOTER-->
     <footer class="colorFooter">

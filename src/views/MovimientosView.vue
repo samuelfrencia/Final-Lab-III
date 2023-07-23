@@ -29,27 +29,46 @@
       </div>
     </nav>
 
-    <!--VENTA CRYPTO-->
+    <!--MIS MOVIMIENTOS-->
     <div class="muestraDatos">
       <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-2 cardCompra">
-          <h3 style="text-align: center;">Venta</h3>
-          <input type="number" name="" id="" class="input-group-text"
-            style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-          <br>
-
-          <select class="form-select" id="miSelect" style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-            <option selected>Cripto a vender</option>
-            <option value="bitcoin">BITCOIN</option>
-            <option value="ethereum">ETHEREUM</option>
-            <option value="usdt">USDT</option>
-            <option value="dai">DAI</option>
-          </select>
-          <br>
-          <button class="btnComprarVender">Vender</button>
+        <div class="col-md-1"></div>
+        <div class=" col-md-10">
+          <h2 style="text-align: center;">Mis movimientos</h2>
+          <table>
+            <tr>
+              <th>Crypto</th>
+              <th>Cantidad</th>
+              <th>Precio compra</th>
+              <th>Compra</th>
+            </tr>
+            <tr>
+              <td>Bitcoin</td>
+              <td>0</td>
+              <td>515151</td>
+              <td>51515151</td>
+            </tr>
+            <tr>
+              <td>Ethereum</td>
+              <td>0</td>
+              <td>515151</td>
+              <td>51515151</td>
+            </tr>
+            <tr>
+              <td>Usdt</td>
+              <td>0</td>
+              <td>515151</td>
+              <td>51515151</td>
+            </tr>
+            <tr>
+              <td>Dai</td>
+              <td>0</td>
+              <td>515151</td>
+              <td>51515151</td>
+            </tr>
+          </table>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
       </div>
     </div>
 
