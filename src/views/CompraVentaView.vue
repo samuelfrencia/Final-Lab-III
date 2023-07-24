@@ -53,7 +53,8 @@
             </div>
             <div style="margin-top: 10px;">
               <button class="btnComprarVender" style="width: auto;" @click="realizarCompra()">Comprar</button>
-              <input class="input-group-text" type="text" v-model="totalCompra" style="width: 100%; color: darkgray; margin-top: 10px;" disabled>
+              <input class="input-group-text" type="text" v-model="totalCompra"
+                style="width: 100%; color: darkgray; margin-top: 10px;" disabled>
             </div>
           </div>
         </div>
@@ -63,7 +64,7 @@
         <div class="col-2"></div>
 
 
-        <!--VENTA-->
+        <!--VENTA
         <div class="col-2 cardCompra">
           <h3 style="text-align: center;">Vender</h3>
           <div>
@@ -83,9 +84,28 @@
                 style="width: 100%; color: darkgray; margin-top: 10px;" disabled>
             </div>
           </div>
+        </div>-->
+
+        <div class="col-2 cardCompra">
+          <h3 style="text-align: center;">Vender</h3>
+          <div>
+            <div>
+              <input class="input-group-text" type="number" v-model="cantidadV" @input="calcularVenta()"
+                style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
+              <br>
+              <select class="form-select" v-model="criptoSeleccionadaV" @change="calcularVenta()"
+                style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
+                <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}
+                </option>
+              </select>
+            </div>
+            <div style="margin-top: 10px;">
+              <button class="btnComprarVender" style="width: auto;" @click="realizarVenta()">Comprar</button>
+              <input class="input-group-text" type="text" v-model="totalVenta"
+                style="width: 100%; color: darkgray; margin-top: 10px;" disabled>
+            </div>
+          </div>
         </div>
-
-
 
 
       </div>
@@ -145,6 +165,9 @@ export default {
         { nombre: 'USDT', api: 'https://criptoya.com/api/bitso/usdt/ars/0.1' },
         { nombre: 'DAI', api: 'https://criptoya.com/api/bitso/dai/ars/0.1' },
       ],
+      cantidadV: 0,
+      criptoSeleccionadaV: '',
+      totalVenta: 'Precio total',
     };
   },
   methods: {
@@ -181,12 +204,59 @@ export default {
       if (this.totalCompra === 'Precio total' || this.totalCompra <= 0) {
         alert('Primero ingresa una cantidad válida y selecciona una criptomoneda.');
       } else {
+        this.criptoSeleccionada = '';
+        this.cantidad = '';
         alert('¡Compra aceptada! Total: ' + this.totalCompra);
+        this.totalCompra = 'Precio total'
+      }
+    },
+
+
+
+    calcularVenta() {
+      if (!this.cantidadV || this.cantidadV <= 0) {
+        this.totalVenta = 'Precio total';
+        return;
+      }
+
+      const criptoSeleccionadaV = this.criptos.find(c => c.nombre === this.criptoSeleccionadaV);
+      if (!criptoSeleccionadaV) {
+        this.totalVenta = 'Precio total';
+        return;
+      }
+
+      this.obtenerPrecioCriptoVenta(criptoSeleccionadaV.api, this.cantidadV)
+        .then((totalVenta) => {
+          this.totalVenta = '$' + totalVenta.toFixed(2);
+        })
+        .catch((error) => {
+          this.totalVenta = 'Precio total';
+          alert('Ha ocurrido un error al obtener los datos de la API.');
+          console.error(error);
+        });
+    },
+    obtenerPrecioCriptoVenta(api, cantidadV) {
+      return axios.get(api)
+        .then((response) => {
+          const precioCriptoVenta = response.data.totalBid;
+          return cantidadV * precioCriptoVenta;
+        });
+    },
+    realizarVenta() {
+      if (this.totalVenta === 'Precio total' || this.totalVenta <= 0) {
+        alert('Primero ingresa una cantidad válida y selecciona una criptomoneda.');
+      } else {        
+        this.criptoSeleccionadaV = '';
+        this.cantidadV = '';
+        alert('Venta aceptada! Total: ' + this.totalVenta);
+        this.totalVenta = 'Precio total'
       }
     },
   },
 };
 </script>
   
-<style scoped>/* Aquí van los estilos del archivo style.css */</style>
+<style scoped>
+/* Aquí van los estilos del archivo style.css */
+</style>
   
