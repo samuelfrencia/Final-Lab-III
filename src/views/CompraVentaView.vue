@@ -45,7 +45,7 @@
               <input class="input-group-text" type="number" v-model="cantidad" @input="calcularCompra()"
                 style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
               <br>
-              <select class="form-select" v-model="criptoSeleccionada" @change="calcularCompra()"
+              <select class="form-select" id="miSelect" v-model="criptoSeleccionada" @change="calcularCompra()"
                 style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
                 <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}
                 </option>
@@ -93,7 +93,7 @@
               <input class="input-group-text" type="number" v-model="cantidadV" @input="calcularVenta()"
                 style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
               <br>
-              <select class="form-select" v-model="criptoSeleccionadaV" @change="calcularVenta()"
+              <select class="form-select" id="miSelect" v-model="criptoSeleccionadaV" @change="calcularVenta()"
                 style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
                 <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}
                 </option>
