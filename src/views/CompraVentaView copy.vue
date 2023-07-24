@@ -31,46 +31,52 @@
 
     <div class="muestraDatos">
       <div class="row">
-        <div class="col-3"></div>
-        <div class="col-2 cardCompra">
-          <h3 style="text-align: center;">Comprar</h3>
-          <div>
-            <div>
-              <input type="number" class="input-group-text" v-model="cantidad"
-                style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-              <br>
-              <select class="form-select" v-model="criptoSeleccionada"
-                style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-                <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}</option>
-              </select>
-            </div>
-            <div style="margin-top: 10px;">
-              <button class="btnComprarVender" @click="calcularCompra()">Comprar</button>          
-              <input class="input-group-text" type="text" v-model="totalCompra" style="width: 100%; color: darkgray; margin-top: 10px;" disabled>          
-            </div>
-          </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-2 cardCompra">
+
+          
+          <h3 style="text-align: center;">Compra</h3>
+          <input type="number" id="cantidad" class="input-group-text"
+            style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
+          <br>
+          <select class="form-select" id="miSelect" style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
+            <option selected disabled>Cripto a comprar</option>
+            <option value="bitcoin">BITCOIN</option>
+            <option value="ethereum">ETHEREUM</option>
+            <option value="usdt">USDT</option>
+            <option value="dai">DAI</option>
+          </select>
+          <br>
+          <input type="number" id="cantidadCompra" class="input-group-text" disabled style="width: 200px;"
+            placeholder="Precio total">
+          <br>
+          <button class="btnComprarVender" id="btnVender" onclick="calcularCompra()">Comprar</button>
+
         </div>
-        <div class="col-2"></div>
-        <div class="col-2 cardCompra">
-          <h3 style="text-align: center;">Vender</h3>
-          <div>
-            <div>
-              <input type="number" class="input-group-text" v-model="cantidad"
-                style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-              <br>
-              <select class="form-select" v-model="criptoSeleccionada"
-                style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-                <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}</option>
-              </select>
-            </div>
-            <div style="margin-top: 10px;">
-              <button class="btnComprarVender" @click="calcularCompra()">Vender</button>          
-              <input class="input-group-text" type="text" v-model="totalCompra" style="width: 100%; color: darkgray; margin-top: 10px;" disabled>          
-            </div>
-          </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2 cardCompra">
+          <h3 style="text-align: center;">Venta</h3>
+          <input type="number" name="" id="" class="input-group-text"
+            style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
+          <br>
+
+          <select class="form-select" id="miSelect" style="width: 200px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
+            <option selected disabled>Cripto a vender</option>
+            <option value="bitcoin">BITCOIN</option>
+            <option value="ethereum">ETHEREUM</option>
+            <option value="usdt">USDT</option>
+            <option value="dai">DAI</option>
+          </select>
+          <br>
+          <input type="number" name="" id="cantidadVenta" class="input-group-text" disabled style="width: 200px;"
+            placeholder="Precio total">
+          <br>
+          <button class="btnComprarVender" id="btnVender">Vender</button>
         </div>
+        <div class="col-md-3"></div>
       </div>
     </div>
+
     <br><br>
 
     <!--FOOTER-->
@@ -112,7 +118,6 @@
 </template>
   
 <script>
-
 import axios from 'axios';
 
 export default {
@@ -120,12 +125,12 @@ export default {
     return {
       cantidad: 0,
       criptoSeleccionada: '',
-      totalCompra: 'Precio total',
+      totalCompra: 0,
       criptos: [
-        { nombre: 'BITCOIN', api: 'https://criptoya.com/api/bitso/btc/ars/0.1' },
-        { nombre: 'ETHEREUM', api: 'https://criptoya.com/api/bitso/ETH/ars/0.1' },
-        { nombre: 'USDT', api: 'https://criptoya.com/api/bitso/usdt/ars/0.1' },
-        { nombre: 'DAI', api: 'https://criptoya.com/api/bitso/dai/ars/0.1' },
+        { nombre: 'BITCOIN', api: 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=ars' },
+        { nombre: 'ETHEREUM', api: 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=ars' },
+        { nombre: 'USDT', api: 'https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=ars' },
+        { nombre: 'DAI', api: 'https://api.coingecko.com/api/v3/simple/price?ids=dai&vs_currencies=ars' },
       ],
     };
   },
@@ -144,7 +149,7 @@ export default {
 
       this.obtenerPrecioCripto(criptoSeleccionada.api, this.cantidad)
         .then((totalCompra) => {
-          this.totalCompra = '$'+ totalCompra;
+          this.totalCompra = totalCompra;
         })
         .catch((error) => {
           alert('Ha ocurrido un error al obtener los datos de la API.');
@@ -154,7 +159,7 @@ export default {
     obtenerPrecioCripto(api, cantidad) {
       return axios.get(api)
         .then((response) => {
-          const precioCripto = response.data.totalAsk;
+          const precioCripto = response.data.usd;
           return cantidad * precioCripto;
         });
     },
