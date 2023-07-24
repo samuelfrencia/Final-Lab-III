@@ -35,7 +35,7 @@
       <div class="muestraDatos">
         <div class="row" style="align-items: top;">
           <div class="cardDatosBalance col-md-3" style="padding: 20px;">
-            <h2>Balance estimado</h2>
+            <h3>Balance estimado</h3>
             <!--PONGO INPUT PARA MUESTRA, LO QUE QUIERO HACER ES CON UN p O h3 QUE MUESTRE MI SALDO TOTAL-->
             <input type="number" disabled style="opacity: 50%;" v-model="saldoTotal" placeholder="sin saldo">
           </div>

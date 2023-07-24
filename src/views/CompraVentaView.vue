@@ -31,26 +31,39 @@
 
     <div class="muestraDatos">
       <div class="row">
+
+
+
         <div class="col-3"></div>
+
+
+        <!--COMPRA-->
         <div class="col-2 cardCompra">
           <h3 style="text-align: center;">Comprar</h3>
           <div>
             <div>
-              <input type="number" class="input-group-text" v-model="cantidad"
+              <input class="input-group-text" type="number" v-model="cantidad" @input="calcularCompra()"
                 style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
               <br>
-              <select class="form-select" v-model="criptoSeleccionada"
+              <select class="form-select" v-model="criptoSeleccionada" @change="calcularCompra()"
                 style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-                <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}</option>
+                <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}
+                </option>
               </select>
             </div>
             <div style="margin-top: 10px;">
-              <button class="btnComprarVender" @click="calcularCompra()">Comprar</button>          
-              <input class="input-group-text" type="text" v-model="totalCompra" style="width: 100%; color: darkgray; margin-top: 10px;" disabled>          
+              <button class="btnComprarVender" @click="realizarCompra()">Comprar</button>
+              <input class="input-group-text" type="text" v-model="totalCompra" style="width: 100%; color: darkgray; margin-top: 10px;" disabled>
             </div>
           </div>
         </div>
+
+
+
         <div class="col-2"></div>
+
+
+        <!--VENTA-->
         <div class="col-2 cardCompra">
           <h3 style="text-align: center;">Vender</h3>
           <div>
@@ -60,15 +73,21 @@
               <br>
               <select class="form-select" v-model="criptoSeleccionada"
                 style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-                <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}</option>
+                <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}
+                </option>
               </select>
             </div>
             <div style="margin-top: 10px;">
-              <button class="btnComprarVender" @click="calcularCompra()">Vender</button>          
-              <input class="input-group-text" type="text" v-model="totalCompra" style="width: 100%; color: darkgray; margin-top: 10px;" disabled>          
+              <button class="btnComprarVender" @click="calcularCompra()">Vender</button>
+              <input class="input-group-text" type="text" v-model="totalCompra"
+                style="width: 100%; color: darkgray; margin-top: 10px;" disabled>
             </div>
           </div>
         </div>
+
+
+
+
       </div>
     </div>
     <br><br>
@@ -112,7 +131,6 @@
 </template>
   
 <script>
-
 import axios from 'axios';
 
 export default {
@@ -132,21 +150,22 @@ export default {
   methods: {
     calcularCompra() {
       if (!this.cantidad || this.cantidad <= 0) {
-        alert('Ingresa una cantidad válida.');
+        this.totalCompra = 'Precio total';
         return;
       }
 
       const criptoSeleccionada = this.criptos.find(c => c.nombre === this.criptoSeleccionada);
       if (!criptoSeleccionada) {
-        alert('Selecciona una criptomoneda válida.');
+        this.totalCompra = 'Precio total';
         return;
       }
 
       this.obtenerPrecioCripto(criptoSeleccionada.api, this.cantidad)
         .then((totalCompra) => {
-          this.totalCompra = '$'+ totalCompra;
+          this.totalCompra = '$' + totalCompra.toFixed(2);
         })
         .catch((error) => {
+          this.totalCompra = 'Precio total';
           alert('Ha ocurrido un error al obtener los datos de la API.');
           console.error(error);
         });
@@ -158,11 +177,16 @@ export default {
           return cantidad * precioCripto;
         });
     },
+    realizarCompra() {
+      if (this.totalCompra === 'Precio total' || this.totalCompra <= 0) {
+        alert('Primero ingresa una cantidad válida y selecciona una criptomoneda.');
+      } else {
+        alert('¡Compra aceptada! Total: ' + this.totalCompra);
+      }
+    },
   },
 };
 </script>
   
-<style scoped>
-/* Aquí van los estilos del archivo style.css */
-</style>
+<style scoped>/* Aquí van los estilos del archivo style.css */</style>
   
