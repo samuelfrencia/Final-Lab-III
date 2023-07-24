@@ -39,7 +39,7 @@
 
         <!--COMPRA-->
         <div class="col-2 cardCompra">
-          <h3 style="text-align: center;">Comprar</h3>
+          <h3 style="text-align: center;">Comprar</h3><hr>
           <div>
             <div>
               <input class="input-group-text" type="number" v-model="cantidad" @input="calcularCompra()"
@@ -51,10 +51,10 @@
                 </option>
               </select>
             </div>
-            <div style="margin-top: 10px;">
-              <button class="btnComprarVender" style="width: auto;" @click="realizarCompra()">Comprar</button>
+            <div style="margin-top: 20px;">
               <input class="input-group-text" type="text" v-model="totalCompra"
-                style="width: 100%; color: darkgray; margin-top: 10px;" disabled>
+                style="width: 100%; color: darkgray" disabled> <br>
+              <button class="btnComprarVender" style="width: auto;" @click="realizarCompra()">Comprar</button>
             </div>
           </div>
         </div>
@@ -87,7 +87,7 @@
         </div>-->
 
         <div class="col-2 cardCompra">
-          <h3 style="text-align: center;">Vender</h3>
+          <h3 style="text-align: center;">Vender</h3><hr>
           <div>
             <div>
               <input class="input-group-text" type="number" v-model="cantidadV" @input="calcularVenta()"
@@ -99,10 +99,11 @@
                 </option>
               </select>
             </div>
-            <div style="margin-top: 10px;">
-              <button class="btnComprarVender" style="width: auto;" @click="realizarVenta()">Comprar</button>
+            <div style="margin-top: 20px;">              
               <input class="input-group-text" type="text" v-model="totalVenta"
                 style="width: 100%; color: darkgray; margin-top: 10px;" disabled>
+                <br>
+              <button  class="btnComprarVender" style="width: auto;" @click="realizarVenta()">Comprar</button>
             </div>
           </div>
         </div>
