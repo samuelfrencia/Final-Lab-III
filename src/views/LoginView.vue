@@ -29,7 +29,7 @@
     </nav>
 
     <!--INICIO SECION-->
-    <div class="container">
+    <div class="loginCentrado">
       <div class="card">
         <div class="card-header">
           <h3>Iniciar sesión</h3>

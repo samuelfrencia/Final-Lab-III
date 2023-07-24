@@ -20,7 +20,12 @@
 }
 
 /*SECCION PRINCIPAL*/
-
+.loginCentrado{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
 .card {
     width: 300px;
     padding: 20px;
