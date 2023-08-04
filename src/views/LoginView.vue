@@ -95,12 +95,11 @@ export default {
         alert('Por favor, ingresa el usuario');
       } else {
         localStorage.setItem('usuario', this.usuario);
-        this.$router.push('/inicio'); // Redireccionar a la página de inicio
+        this.$router.push('/inicio'); 
       }
     }
   }
 };
 </script>
   
-<style scoped>/* Agrega los estilos CSS aquí */</style>
   
