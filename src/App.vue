@@ -12,8 +12,8 @@
     width: 250px;
 }
 .cerrarSesion{
-    text-decoration: none;
-    color: darkgray ;
+ 
+    color: white ;
 }
 .cerrarSesion:hover{
     color: red;
