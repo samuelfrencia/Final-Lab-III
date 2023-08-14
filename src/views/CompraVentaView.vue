@@ -65,6 +65,8 @@ import NavbarView from '@/components/navbarView.vue';
 import FooterView from '@/components/footerView.vue';
 import axios from 'axios';
 
+
+
 export default {
     data() {
         return {
@@ -110,6 +112,10 @@ export default {
                 return cantidad * precioCripto;
             });
         },
+
+
+
+        
         realizarCompra() {
             if (this.totalCompra === "Precio total" || this.totalCompra <= 0) {
                 alert("Primero ingresa una cantidad válida y selecciona una criptomoneda.");
@@ -121,6 +127,9 @@ export default {
                 this.totalCompra = "Precio total";
             }
         },
+
+
+        
         calcularVenta() {
             if (!this.cantidadV || this.cantidadV <= 0) {
                 this.totalVenta = "Precio total";

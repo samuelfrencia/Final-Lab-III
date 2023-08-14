@@ -89,12 +89,15 @@ export default {
       usuario: ''
     };
   },
+  created(){
+    this.usuario = JSON.parse(localStorage.getItem('user'))
+  },
   methods: {
     submitForm() {
       if (this.usuario === '') {
         alert('Por favor, ingresa el usuario');
       } else {
-        localStorage.setItem('usuario', this.usuario);
+        localStorage.setItem('user', JSON.stringify(this.usuario))
         this.$router.push('/inicio'); 
       }
     }

@@ -34,12 +34,16 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-      usuario: 'asd',
+      usuario: null,
       isHovering: false,
     };
+  },
+  created(){
+    this.usuario = JSON.parse(localStorage.getItem('user'))
   },
   methods: {
     toggleHover(value) {
