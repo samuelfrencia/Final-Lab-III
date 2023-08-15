@@ -132,7 +132,7 @@ export default {
           "user_id": this.usuario,
           "action": 'purchase',
           "crypto_code": this.criptoSeleccionada,
-          "crypto_amount": this.cantidad,
+          "crypto_amount": this.cantidad.toString(),
           "money": this.precioCripto,
           "datetime": datetime,
         }
