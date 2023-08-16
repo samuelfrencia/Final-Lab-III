@@ -62,8 +62,7 @@ export default {
     fetchData() {
       axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'Content-type': 'application/data',
-          'APIKEY': '60eb09146661365596af552f'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {

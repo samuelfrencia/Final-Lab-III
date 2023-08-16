@@ -117,39 +117,43 @@ export default {
           return cantidad * precioCripto;
         });
     },
-
-
-
-
+    //PROBLEMA DE LA API
     realizarCompra() {
       if (this.totalCompra === "Precio total" || this.totalCompra <= 0) {
         alert("Primero ingresa una cantidad válida y selecciona una criptomoneda.");
       }
       else {
 
-        const datetime = new Date().toISOString();
+        const datetime = new Date();
+
+        const dia = datetime.getDate();
+        const mes = datetime.getMonth() + 1;
+        const anio = datetime.getFullYear();
+        const hora = datetime.getHours();
+        const min = datetime.getMinutes();
+
+        this.horaCompra = dia + "/" + mes + "/" + anio + " - " + hora + ":" + min + "hs."
+
         const data = {
-          "user_id": this.usuario,
-          "action": 'purchase',
-          "crypto_code": this.criptoSeleccionada,
-          "crypto_amount": this.cantidad.toString(),
-          "money": this.precioCripto,
-          "datetime": datetime,
+          user_id: this.usuario,
+          action: 'purchase',
+          crypto_code: this.criptoSeleccionada,
+          crypto_amount: this.cantidad.toString(),
+          money: this.totalCompra.toString(),
+          datetime: this.horaCompra,
         }
 
-        axios.post('https://laboratorio3-f36a.restdb.io/rest/transactions', data, {
-          headers: {
-            'Content-type': 'aplication/data',
-            'APIKEY': '60eb09146661365596af552f'
-          },
-        })
+
+        axios
+          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', data, {
+            headers: { 'x-apikey': '60eb09146661365596af552f' },
+          })
           .then(response => {
-            console.log('Respuesta de la API:', response);
-            // Hacer algo con la respuesta si es necesario
+            console.log('Respuesta de la API:', response.data);
           })
           .catch(error => {
             console.error(error);
-            // Manejar el error si es necesario
+
           });
 
 
@@ -202,7 +206,7 @@ export default {
       }
     },
   },
-  created(){
+  created() {
     this.usuario = JSON.parse(localStorage.getItem('user'))
   },
   components: {
