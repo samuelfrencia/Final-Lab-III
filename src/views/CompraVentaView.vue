@@ -102,7 +102,7 @@ export default {
       }
       this.obtenerPrecioCripto(criptoSeleccionada.api, this.cantidad)
         .then((totalCompra) => {
-          this.totalCompra = "$" + totalCompra.toFixed(2);
+          this.totalCompra = totalCompra.toFixed(2);
         })
         .catch((error) => {
           this.totalCompra = "Precio total";
@@ -134,19 +134,22 @@ export default {
 
         this.horaCompra = dia + "/" + mes + "/" + anio + " - " + hora + ":" + min + "hs."
 
-        const data = {
+        const datos = {
           user_id: this.usuario,
           action: 'purchase',
-          crypto_code: this.criptoSeleccionada,
+          crypto_code: this.criptoSeleccionada.toLowerCase(),
           crypto_amount: this.cantidad.toString(),
           money: this.totalCompra.toString(),
-          datetime: this.horaCompra,
+          datetime: this.horaCompra.toString(),
         }
 
 
         axios
-          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', data, {
-            headers: { 'x-apikey': '60eb09146661365596af552f' },
+          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
+            headers: {
+              'x-apikey': '60eb09146661365596af552f',
+              'Content-Type': 'application/json',
+             },
           })
           .then(response => {
             console.log('Respuesta de la API:', response.data);

@@ -13,22 +13,25 @@
               <tr>
                 <th>Crypto</th>
                 <th>Cantidad</th>
-                <th>Fecha</th>
-                <th>Precio compra</th>
+                <th>Total ($)</th>
                 <th>Ganancias</th>
-                <th>Buttons</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(cripto, index) in criptos" :key="index">
-                <td>{{ cripto.crypto_code }}</td>
+                <td>{{ cripto.crypto_code.toUpperCase() }}</td>
                 <td>{{ cripto.crypto_amount }}</td>
-                <td>{{ cripto.datetime }}</td>
                 <td>${{ cripto.money }}</td>
-                <td>${{ cripto.ganancia }}</td>
-                <td>Botones</td>
+                <td>${{ cripto.money }}</td>
               </tr>
             </tbody>
+            <!--<tbody>
+              <tr v-for="(cripto, index) in criptos" :key="index">
+                <td>{{ cripto.crypto_code.toUpperCase() }}</td>
+                <td>{{ cripto.crypto_amount }}</td>
+                <td>${{ cripto.money }}</td>
+              </tr>
+            </tbody>-->
           </table>
         </div>
         <div class="col-md-1"></div>
@@ -49,7 +52,13 @@ export default {
   data() {
     return {
       criptos: [],
-      usuario: ''
+      usuario: '',
+      monedas: [
+        { nombre: "BITCOIN"},
+        { nombre: "ETHEREUM"},
+        { nombre: "USDT" },
+        { nombre: "DAI"},
+      ],
     };
   },
   created() {
