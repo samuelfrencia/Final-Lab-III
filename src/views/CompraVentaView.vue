@@ -123,17 +123,13 @@ export default {
         alert("Primero ingresa una cantidad válida y selecciona una criptomoneda.");
       }
       else {
-
         const datetime = new Date();
-
         const dia = datetime.getDate();
         const mes = datetime.getMonth() + 1;
         const anio = datetime.getFullYear();
         const hora = datetime.getHours();
         const min = datetime.getMinutes();
-
         this.horaCompra = dia + "/" + mes + "/" + anio + " - " + hora + ":" + min + "hs."
-
         const datos = {
           user_id: this.usuario,
           action: 'purchase',
@@ -142,8 +138,6 @@ export default {
           money: this.totalCompra.toString(),
           datetime: this.horaCompra.toString(),
         }
-
-
         axios
           .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
             headers: {
@@ -156,20 +150,13 @@ export default {
           })
           .catch(error => {
             console.error(error);
-
           });
-
-
-
         this.criptoSeleccionada = "";
         this.cantidad = "";
-        alert("¡Compra aceptada! Total: " + this.totalCompra);
+        alert("¡Compra aceptada! Total: $" + this.totalCompra);
         this.totalCompra = "Precio total";
       }
     },
-
-
-
     calcularVenta() {
       if (!this.cantidadV || this.cantidadV <= 0) {
         this.totalVenta = "Precio total";
