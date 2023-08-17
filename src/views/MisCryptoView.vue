@@ -22,7 +22,7 @@
                 <td>{{ cripto.crypto_code.toUpperCase() }}</td>
                 <td>{{ cripto.crypto_amount }}</td>
                 <td>${{ cripto.money }}</td>
-                <td>${{ cripto.money }}</td>
+                <td>$ganancias</td>
               </tr>
             </tbody>
             <!--<tbody>
@@ -52,13 +52,7 @@ export default {
   data() {
     return {
       criptos: [],
-      usuario: '',
-      monedas: [
-        { nombre: "BITCOIN"},
-        { nombre: "ETHEREUM"},
-        { nombre: "USDT" },
-        { nombre: "DAI"},
-      ],
+      usuario: ''
     };
   },
   created() {
@@ -77,7 +71,7 @@ export default {
         .then(response => {
           console.log('Respuesta de la API:', response.data);
           
-          this.criptos = response.data; // Almacena los datos en el arreglo criptos
+          this.criptos = response.data;
         })
         .catch(error => {
           console.error('Error al obtener los datos:', error);
