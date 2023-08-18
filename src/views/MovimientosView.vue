@@ -12,20 +12,25 @@
           <table>
             <thead>
               <tr>
+                <th>Venta/Compra</th>
                 <th>Crypto</th>
                 <th>Cantidad</th>
                 <th>Fecha</th>
                 <th>Precio compra</th>
                 <th>Ganancias</th>
+                <th>Buttons</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(cripto, index) in criptos" :key="index">
+                <td>{{ cripto.action }}</td>
                 <td>{{ cripto.crypto_code.toUpperCase() }}</td>
                 <td>{{ cripto.crypto_amount }}</td>
                 <td>{{ cripto.datetime }}</td>
                 <td>${{ cripto.money }}</td>
                 <td>${{ cripto.ganancia }}</td>
+                <td><img src="../assets/pencil-square.svg" alt=""><img src="../assets/trash.svg" alt=""></td>
+
               </tr>
             </tbody>
           </table>
@@ -33,50 +38,6 @@
         <div class="col-md-1"></div>
       </div>
     </div>
-
-    
-    <div class="muestraDatos">
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class=" col-md-10">
-          <h2 style="text-align: center;">Mis movimientos</h2>
-          <table>
-            <tr>
-              <th>Crypto</th>
-              <th>Cantidad</th>
-              <th>Precio compra</th>
-              <th>Compra</th>
-            </tr>
-            <tr>
-              <td>Bitcoin</td>
-              <td>0</td>
-              <td>515151</td>
-              <td>51515151</td>
-            </tr>
-            <tr>
-              <td>Ethereum</td>
-              <td>0</td>
-              <td>515151</td>
-              <td>51515151</td>
-            </tr>
-            <tr>
-              <td>Usdt</td>
-              <td>0</td>
-              <td>515151</td>
-              <td>51515151</td>
-            </tr>
-            <tr>
-              <td>Dai</td>
-              <td>0</td>
-              <td>515151</td>
-              <td>51515151</td>
-            </tr>
-          </table>
-        </div>
-        <div class="col-md-1"></div>
-      </div>
-    </div>
-
     <br><br><br><br>
     <!--FOOTER-->
     <FooterView></FooterView>
@@ -91,8 +52,10 @@ import FooterView from '@/components/footerView.vue';
 export default {
   data() {
     return {
+      buttons: [{ imgDelete: '../assets/trash.svg', imgEdit: '../assets/pencil-square.svg' }],
       criptos: [],
-      usuario: ''
+      usuario: '',
+      fechaHoraDesdeAPI: "",
     };
   },
   created() {
@@ -103,6 +66,7 @@ export default {
   },
   methods: {
     fetchData() {
+
       axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
           'x-apikey': '60eb09146661365596af552f'
@@ -110,8 +74,9 @@ export default {
       })
         .then(response => {
           console.log('Respuesta de la API:', response.data);
-          
-          this.criptos = response.data; // Almacena los datos en el arreglo criptos
+          this.criptos = response.data;
+
+
         })
         .catch(error => {
           console.error('Error al obtener los datos:', error);
@@ -125,5 +90,7 @@ export default {
 };
 </script>
   
-<style>/* Estilos del archivo style.css */</style>
+<style>
+/* Estilos del archivo style.css */
+</style>
   
