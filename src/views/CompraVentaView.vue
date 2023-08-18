@@ -50,7 +50,7 @@
               <input class="input-group-text" type="text" v-model="totalVenta"
                 style="width: 100%; color: darkgray; margin-top: 10px;" disabled>
               <br>
-              <button class="btnComprarVender" style="width: auto;" @click="realizarVenta()">Comprar</button>
+              <button class="btnComprarVender" style="width: auto;" @click="realizarVenta()">Vender</button>
             </div>
           </div>
         </div>
@@ -150,7 +150,7 @@ export default {
             headers: {
               'x-apikey': '60eb09146661365596af552f',
               'Content-Type': 'application/json',
-             },
+            },
           })
           .then(response => {
             console.log('Respuesta de la API:', response.data);
@@ -176,7 +176,7 @@ export default {
       }
       this.obtenerPrecioCriptoVenta(criptoSeleccionadaV.api, this.cantidadV)
         .then((totalVenta) => {
-          this.totalVenta = "$" + totalVenta.toFixed(2);
+          this.totalVenta = totalVenta.toFixed(2);
         })
         .catch((error) => {
           this.totalVenta = "Precio total";
@@ -196,6 +196,42 @@ export default {
         alert("Primero ingresa una cantidad válida y selecciona una criptomoneda.");
       }
       else {
+        const fechaHora = new Date();
+
+        const dia = fechaHora.getDate();
+        const mes = fechaHora.getMonth() + 1;
+        const anio = fechaHora.getFullYear();
+        const hora = fechaHora.getHours();
+        const min = fechaHora.getMinutes();
+        const seg = fechaHora.getSeconds();
+
+        this.horaCompra = anio + "-" + mes + "-" + dia + " " + hora + ":" + min + ":" + seg;
+
+        console.log(this.horaCompra)
+
+        const datos = {
+          user_id: this.usuario,
+          action: 'sale',
+          crypto_code: this.criptoSeleccionadaV.toLowerCase(),
+          crypto_amount: this.cantidadV.toString(),
+          money: this.totalVenta.toString(),
+          datetime: this.horaCompra,
+        }
+        axios
+          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
+            headers: {
+              'x-apikey': '60eb09146661365596af552f',
+              'Content-Type': 'application/json',
+            },
+          })
+          .then(response => {
+            console.log('Respuesta de la API:', response.data);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+
+
         this.criptoSeleccionadaV = "";
         this.cantidadV = "";
         alert("Venta aceptada! Total: " + this.totalVenta);
