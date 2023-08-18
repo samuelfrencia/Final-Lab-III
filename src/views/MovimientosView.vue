@@ -74,6 +74,19 @@ export default {
       })
         .then(response => {
           console.log('Respuesta de la API:', response.data);
+          const fechaHora = new Date();
+
+          const dia = fechaHora.getDate();
+          const mes = fechaHora.getMonth() + 1;
+          const anio = fechaHora.getFullYear();
+          const hora = fechaHora.getHours();
+          const min = fechaHora.getMinutes();
+          const seg = fechaHora.getSeconds();
+
+          this.horaCompra = anio + "-" + mes + "-" + dia + " " + hora + ":" + min + ":" + seg;
+
+          console.log(this.horaCompra)
+          this.criptos.datetime = this.horaCompra
           this.criptos = response.data;
 
 

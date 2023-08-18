@@ -198,16 +198,14 @@ export default {
       else {
         const fechaHora = new Date();
 
-        const dia = fechaHora.getDate();
-        const mes = fechaHora.getMonth() + 1;
+        const dia = String(fechaHora.getDate()).padStart(2, '0');
+        const mes = String(fechaHora.getMonth() + 1).padStart(2, '0');
         const anio = fechaHora.getFullYear();
-        const hora = fechaHora.getHours();
-        const min = fechaHora.getMinutes();
-        const seg = fechaHora.getSeconds();
+        const hora = String(fechaHora.getHours()).padStart(2, '0');
+        const min = String(fechaHora.getMinutes()).padStart(2, '0');
+        const seg = String(fechaHora.getSeconds()).padStart(2, '0');
 
         this.horaCompra = anio + "-" + mes + "-" + dia + " " + hora + ":" + min + ":" + seg;
-
-        console.log(this.horaCompra)
 
         const datos = {
           user_id: this.usuario,
