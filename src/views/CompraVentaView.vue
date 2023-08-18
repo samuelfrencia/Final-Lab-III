@@ -146,14 +146,16 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio-36cf.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '60eb09146661365596af552f',
+              'x-apikey': '64a5ccf686d8c5d256ed8fce',
               'Content-Type': 'application/json',
             },
           })
           .then(response => {
             console.log('Respuesta de la API:', response.data);
+            this.idTransaccion = response.data._id
+            console.log(this.idTransaccion)
           })
           .catch(error => {
             console.error(error);
@@ -208,6 +210,7 @@ export default {
         this.horaCompra = anio + "-" + mes + "-" + dia + " " + hora + ":" + min + ":" + seg;
 
         const datos = {
+          _id: this.idTransaccion,
           user_id: this.usuario,
           action: 'sale',
           crypto_code: this.criptoSeleccionadaV.toLowerCase(),
@@ -216,14 +219,16 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio-36cf.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '60eb09146661365596af552f',
+              'x-apikey': '64a5ccf686d8c5d256ed8fce',
               'Content-Type': 'application/json',
             },
           })
           .then(response => {
             console.log('Respuesta de la API:', response.data);
+            this.idTransaccion = response.data._id
+            console.log(this.idTransaccion)
           })
           .catch(error => {
             console.error(error);
