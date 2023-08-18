@@ -29,7 +29,11 @@
                 <td>{{ cripto.datetime }}</td>
                 <td>${{ cripto.money }}</td>
                 <td>${{ cripto.ganancia }}</td>
-                <td><img src="../assets/pencil-square.svg" alt=""><img src="../assets/trash.svg" alt=""></td>
+                <td>
+                  <button><img src="../assets/pencil-square.svg" alt=""></button>
+                  <button><img src="../assets/pencil-square.svg" alt=""></button>
+                  <button><img src="../assets/pencil-square.svg" alt=""></button>
+                </td>
 
               </tr>
             </tbody>
@@ -76,19 +80,19 @@ export default {
           console.log('Respuesta de la API:', response.data);
           const fechaHora = new Date();
 
-          const dia = fechaHora.getDate();
-          const mes = fechaHora.getMonth() + 1;
+          const dia = String(fechaHora.getDate()).padStart(2, '0');
+          const mes = String(fechaHora.getMonth() + 1).padStart(2, '0');
           const anio = fechaHora.getFullYear();
-          const hora = fechaHora.getHours();
-          const min = fechaHora.getMinutes();
-          const seg = fechaHora.getSeconds();
+          const hora = String(fechaHora.getHours()).padStart(2, '0');
+          const min = String(fechaHora.getMinutes()).padStart(2, '0');
+          const seg = String(fechaHora.getSeconds()).padStart(2, '0');
 
           this.horaCompra = anio + "-" + mes + "-" + dia + " " + hora + ":" + min + ":" + seg;
 
-          console.log(this.horaCompra)
+
           this.criptos.datetime = this.horaCompra
           this.criptos = response.data;
-
+          console.log(this.horaCompra)
 
         })
         .catch(error => {
