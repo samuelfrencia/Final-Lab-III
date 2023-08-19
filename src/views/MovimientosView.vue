@@ -90,7 +90,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+                <button @click="eliminarTransaccion()" id="modalElim" class="btn btn-danger">Eliminar</button>
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancelar</button>
               </div>
             </div>
@@ -140,6 +140,7 @@ export default {
         .then(response => {
           console.log('Respuesta de la API:', response.data);
           this.criptos.datetime = this.horaCompra
+          this.criptos._id = this.idTransaccion;
           this.criptos = response.data;
         })
         .catch(error => {
@@ -147,6 +148,19 @@ export default {
         });
     },
   },
+  eliminarTransaccion() {
+      axios.delete(`https://laboratorio-36cf.restdb.io/rest/transactions/${this.criptos._id}"}`, {
+        headers: {
+          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+        },
+      })
+        .then(response => {
+          console.log('Dato ELIMINADO de la API:', response.data);
+        })
+        .catch(error => {
+          console.error('Error al ELIMINAR dato:', error);
+        });
+    },
   components: {
     NavbarView,
     FooterView
