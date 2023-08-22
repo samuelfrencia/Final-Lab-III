@@ -29,13 +29,13 @@
                 <td>{{ transaccion.datetime }}</td>
                 <td>${{ transaccion.money }}</td>
                 <td>${{ transaccion.ganancia }}</td>
-                <!-- Button trigger modal -->
                 <td>
+
+                  <!-- Button/Modal VER -->
                   <button class="btn btn-info" id="btnInfo" data-bs-toggle="modal" data-bs-target="#ModalVer"
                     @click="verTransaccion(transaccion)">
                     <img src="../assets/eye.svg" alt="">
                   </button>
-                  <!-- Modal VER -->
                   <div class="modal fade" id="ModalVer" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
@@ -44,23 +44,25 @@
                           <h1 class="modal-title fs-5" id="exampleModalLabel">Datos de la transaccion</h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body" style="text-align: center;" >
+                        <div class="modal-body" style="text-align: center;">
                           <p><em>Accion:</em> <b>{{ verCrypto.action }}</b></p>
                           <p><em>Criptomoneda:</em> <b>{{ verCrypto.crypto_code }}</b></p>
                           <p><em>Cantidad:</em> <b>{{ verCrypto.crypto_amount }}</b></p>
                           <p><em>Fecha:</em> <b>{{ verCrypto.datetime }}</b></p>
-                          <p><em>Precio:</em>  <b>${{ verCrypto.money }}</b></p>
+                          <p><em>Precio:</em> <b>${{ verCrypto.money }}</b></p>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <button class="btn btn-warning" id="btnEdit" data-bs-toggle="modal" data-bs-target="#ModalModificar">
+
+                  <!-- Button/Modal MODIFICAR -->
+                  <button class="btn btn-warning" id="btnEdit" data-bs-toggle="modal" data-bs-target="#ModalModificar"
+                    @click="modificarTransaccion(transaccion)">
                     <img src="../assets/pencil-square.svg" alt="">
                   </button>
-                  <!-- Modal MODIFICAR -->
                   <div class="modal fade" id="ModalModificar" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
@@ -77,15 +79,17 @@
                           <input name="" id="" style="margin: 2px;">{{ criptos.money }}
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Modificar</button>
+                          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                       </div>
                     </div>
                   </div>
+
+                  <!-- Button/Modal BORRAR -->
                   <button class="btn btn-danger" id="btnBorrar" data-bs-toggle="modal" data-bs-target="#ModalBorrar">
                     <img src="../assets/trash.svg" alt="">
                   </button>
-                  <!-- Modal BORRAR -->
                   <div class="modal fade" id="ModalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
@@ -96,9 +100,9 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-footer">
-                          <button id="modalElim" class="btn btn-danger" @click="eliminarTransaccion(transaccion)"
+                          <button id="modalElim" class="btn btn-outline-danger" @click="eliminarTransaccion(transaccion)"
                             data-bs-dismiss="modal">Eliminar</button>
-                          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancelar</button>
+                          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                       </div>
                     </div>
@@ -176,7 +180,32 @@ export default {
       })
         .then(response => {
           this.verCrypto = response.data;
-          console.log('VER dato de la API:', this.verCrypto)
+          console.log('VER transaccion de la API:', this.verCrypto)
+        })
+        .catch(error => {
+          console.error('Error al ELIMINAR dato:', error);
+        });
+    },
+    modificarTransaccion(transaccion) {
+
+      const datosModificar = {
+          _id: this.idTransaccion,
+          user_id: this.usuario,
+          action: 'sale',
+          crypto_code: this.criptoSeleccionadaV.toLowerCase(),
+          crypto_amount: this.cantidadV.toString(),
+          money: this.totalVenta.toString(),
+          datetime: this.horaCompra,
+        }
+
+      axios.get(`https://laboratorio3-5fc7.restdb.io/rest/transactions/${transaccion._id}`, datosModificar, {
+        headers: {
+          'x-apikey': '64bdbc3386d8c5613ded91e7'
+        },
+      })
+        .then(response => {
+          this.verModif = response.data;
+          console.log('MODIFICAR transaccion de la API:', this.verModif)
         })
         .catch(error => {
           console.error('Error al ELIMINAR dato:', error);
