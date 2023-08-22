@@ -18,6 +18,7 @@
                 <th>Fecha</th>
                 <th>Precio compra</th>
                 <th>Ganancias</th>
+                <th>IDs</th>
                 <th>Buttons</th>
               </tr>
             </thead>
@@ -29,6 +30,7 @@
                 <td>{{ transaccion.datetime }}</td>
                 <td>${{ transaccion.money }}</td>
                 <td>${{ transaccion.ganancia }}</td>
+                <td>{{ transaccion._id }}</td>
                 <td>
 
                   <!-- Button/Modal VER -->
@@ -58,9 +60,9 @@
                     </div>
                   </div>
 
-                  <!-- Button/Modal MODIFICAR -->
+                  <!-- Button/Modal MODIFICAR-->
                   <button class="btn btn-warning" id="btnEdit" data-bs-toggle="modal" data-bs-target="#ModalModificar"
-                    @click="modificarTransaccion(transaccion)">
+                    @click="cargarTransaccionModif(transaccion)">
                     <img src="../assets/pencil-square.svg" alt="">
                   </button>
                   <div class="modal fade" id="ModalModificar" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -72,11 +74,14 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" style="text-align: center;">
-                          <input name="" id="" style="margin: 2px;">{{ criptos.action }}<br>
-                          <input name="" id="" style="margin: 2px;">{{ criptos.crypto_code }}<br>
-                          <input name="" id="" style="margin: 2px;">{{ criptos.crypto_amount }}<br>
-                          <input name="" id="" style="margin: 2px;">{{ criptos.datetime }}<br>
-                          <input name="" id="" style="margin: 2px;">{{ criptos.money }}
+                          <select style="margin: 2px;width: 200px" v-model="verModif.action">
+                            <option value="purchase" >purchase</option>
+                            <option value="sale">sale</option>
+                          </select><br>
+                          <input v-model="verModif.crypto_code" style="margin: 2px;width: 200px"><br>
+                          <input v-model="verModif.crypto_amount" style="margin: 2px;width: 200px"><br>
+                          <input v-model="verModif.datetime" style="margin: 2px;width: 200px"><br>
+                          <input v-model="verModif.money" style="margin: 2px;width: 200px">
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Modificar</button>
@@ -84,7 +89,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> 
 
                   <!-- Button/Modal BORRAR -->
                   <button class="btn btn-danger" id="btnBorrar" data-bs-toggle="modal" data-bs-target="#ModalBorrar">
@@ -133,19 +138,28 @@ export default {
       usuario: '',
       fechaHoraDesdeAPI: "",
       verCrypto: [],
+      verModif: [],
+      transaccionModificada: {
+        action: '',
+        crypto_code: '',
+        crypto_amount: '',
+        datetime: '',
+        money: ''
+      },
+      
     };
   },
   created() {
     this.usuario = JSON.parse(localStorage.getItem('user'))
   },
   mounted() {
-    this.fetchData(); // Llama al método para obtener los datos al cargar el componente
+    this.traerTransacciones(); // Llama al método para obtener los datos al cargar el componente
   },
   methods: {
-    fetchData() {
-      axios.get(`https://laboratorio3-5fc7.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+    traerTransacciones() {
+      axios.get(`https://laboratorio3-5459.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '64bdbc3386d8c5613ded91e7'
+          'x-apikey': '64a57c2b86d8c50fe6ed8fa5'
         },
       })
         .then(response => {
@@ -159,23 +173,23 @@ export default {
         });
     },
     eliminarTransaccion(transaccion) {
-      axios.delete(`https://laboratorio3-5fc7.restdb.io/rest/transactions/${transaccion._id}`, {
+      axios.delete(`https://laboratorio3-5459.restdb.io/rest/transactions/${transaccion._id}`, {
         headers: {
-          'x-apikey': '64bdbc3386d8c5613ded91e7'
+          'x-apikey': '64a57c2b86d8c50fe6ed8fa5'
         },
       })
         .then(response => {
           console.log('Dato ELIMINADO de la API:', response.data);
-          this.fetchData();
+          this.traerTransacciones();
         })
         .catch(error => {
           console.error('Error al ELIMINAR dato:', error);
         });
     },
     verTransaccion(transaccion) {
-      axios.get(`https://laboratorio3-5fc7.restdb.io/rest/transactions/${transaccion._id}`, {
+      axios.get(`https://laboratorio3-5459.restdb.io/rest/transactions/${transaccion._id}`, {
         headers: {
-          'x-apikey': '64bdbc3386d8c5613ded91e7'
+          'x-apikey': '64a57c2b86d8c50fe6ed8fa5'
         },
       })
         .then(response => {
@@ -188,28 +202,31 @@ export default {
     },
     modificarTransaccion(transaccion) {
 
-      const datosModificar = {
-          _id: this.idTransaccion,
-          user_id: this.usuario,
-          action: 'sale',
-          crypto_code: this.criptoSeleccionadaV.toLowerCase(),
-          crypto_amount: this.cantidadV.toString(),
-          money: this.totalVenta.toString(),
-          datetime: this.horaCompra,
-        }
+//ARREGLAR EL MODIFICAR, QUE PRIMERO CARGUE LOS DATOS AL MODAL DE LA TRANSACCION ELEGIDA(BUTTON CARGAR DATOS AL MODAL)
+//BOTON DE MODAL YA, GUARDAR LOS CAMBIOS DE LA MODIFICACION
+//BOTON DE MODAL CANCELAR, QUE MANTENGA LOS DATOS IGUAL 
+      const transaccionModificada = {
+        action: this.verModif.action,
+        crypto_code: this.verModif.crypto_code,
+        crypto_amount: this.verModif.crypto_amount,
+        datetime: this.verModif.datetime,
+        money: this.verModif.money
+      }
 
-      axios.get(`https://laboratorio3-5fc7.restdb.io/rest/transactions/${transaccion._id}`, datosModificar, {
+      axios.patch(`https://laboratorio3-5459.restdb.io/rest/transactions/${transaccion._id}`, transaccionModificada, {
         headers: {
-          'x-apikey': '64bdbc3386d8c5613ded91e7'
+          'x-apikey': '64a57c2b86d8c50fe6ed8fa5'
         },
       })
         .then(response => {
           this.verModif = response.data;
           console.log('MODIFICAR transaccion de la API:', this.verModif)
+          this.traerTransacciones();
         })
         .catch(error => {
           console.error('Error al ELIMINAR dato:', error);
         });
+        
     },
   },
   components: {
