@@ -27,7 +27,7 @@
                 <td>{{ transaccion.action }}</td>
                 <td>{{ transaccion.crypto_code.toUpperCase() }}</td>
                 <td>{{ transaccion.crypto_amount }}</td>
-                <td>{{ transaccion.datetime }}</td>
+                <td>{{ new Date (transaccion.datetime).toLocaleString() }}</td>
                 <td>${{ transaccion.money }}</td>
                 <td>${{ transaccion.ganancia }}</td>
                 <td>{{ transaccion._id }}</td>
