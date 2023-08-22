@@ -146,14 +146,14 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio-36cf.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio3-5fc7.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '64a5ccf686d8c5d256ed8fce',
+              'x-apikey': '64bdbc3386d8c5613ded91e7',
               'Content-Type': 'application/json',
             },
           })
           .then(response => {
-            console.log('Respuesta de la API:', response.data);
+            console.log('Subido a la API:', response.data);
             this.idTransaccion = response.data._id
             console.log(this.idTransaccion)
           })
@@ -219,9 +219,9 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio-36cf.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio3-5fc7.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '64a5ccf686d8c5d256ed8fce',
+              'x-apikey': '64bdbc3386d8c5613ded91e7',
               'Content-Type': 'application/json',
             },
           })

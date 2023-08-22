@@ -18,7 +18,6 @@
                 <th>Fecha</th>
                 <th>Precio compra</th>
                 <th>Ganancias</th>
-                <th>ID</th>
                 <th>Buttons</th>
               </tr>
             </thead>
@@ -30,84 +29,85 @@
                 <td>{{ transaccion.datetime }}</td>
                 <td>${{ transaccion.money }}</td>
                 <td>${{ transaccion.ganancia }}</td>
-                <td>{{ transaccion._id }}</td>
                 <!-- Button trigger modal -->
                 <td>
-                  <button class="btn btn-info" id="btnInfo" data-bs-toggle="modal" data-bs-target="#ModalVer">
+                  <button class="btn btn-info" id="btnInfo" data-bs-toggle="modal" data-bs-target="#ModalVer"
+                    @click="verTransaccion(transaccion)">
                     <img src="../assets/eye.svg" alt="">
                   </button>
+                  <!-- Modal VER -->
+                  <div class="modal fade" id="ModalVer" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Datos de la transaccion</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="text-align: center;" >
+                          <p><em>Accion:</em> <b>{{ verCrypto.action }}</b></p>
+                          <p><em>Criptomoneda:</em> <b>{{ verCrypto.crypto_code }}</b></p>
+                          <p><em>Cantidad:</em> <b>{{ verCrypto.crypto_amount }}</b></p>
+                          <p><em>Fecha:</em> <b>{{ verCrypto.datetime }}</b></p>
+                          <p><em>Precio:</em>  <b>${{ verCrypto.money }}</b></p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <button class="btn btn-warning" id="btnEdit" data-bs-toggle="modal" data-bs-target="#ModalModificar">
                     <img src="../assets/pencil-square.svg" alt="">
                   </button>
-                  <button class="btn btn-danger" @click="eliminarTransaccion(transaccion._id)" id="btnBorrar">
+                  <!-- Modal MODIFICAR -->
+                  <div class="modal fade" id="ModalModificar" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar transaccion</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="text-align: center;">
+                          <input name="" id="" style="margin: 2px;">{{ criptos.action }}<br>
+                          <input name="" id="" style="margin: 2px;">{{ criptos.crypto_code }}<br>
+                          <input name="" id="" style="margin: 2px;">{{ criptos.crypto_amount }}<br>
+                          <input name="" id="" style="margin: 2px;">{{ criptos.datetime }}<br>
+                          <input name="" id="" style="margin: 2px;">{{ criptos.money }}
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-danger" id="btnBorrar" data-bs-toggle="modal" data-bs-target="#ModalBorrar">
                     <img src="../assets/trash.svg" alt="">
                   </button>
+                  <!-- Modal BORRAR -->
+                  <div class="modal fade" id="ModalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Estas seguro de eliminar la transaccion?
+                          </h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer">
+                          <button id="modalElim" class="btn btn-danger" @click="eliminarTransaccion(transaccion)"
+                            data-bs-dismiss="modal">Eliminar</button>
+                          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <!-- Modal VER -->
-        <div class="modal fade" id="ModalVer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Datos de la transaccion</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body" style="text-align: center;">
-                <input name="" id="" style="margin: 2px;" disabled>{{ criptos.action }}<br>
-                <input name="" id="" style="margin: 2px;" disabled>{{ criptos.crypto_code }}<br>
-                <input name="" id="" style="margin: 2px;" disabled>{{ criptos.crypto_amount }}<br>
-                <input name="" id="" style="margin: 2px;" disabled>{{ criptos.datetime }}<br>
-                <input name="" id="" style="margin: 2px;" disabled>{{ criptos.money }}
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal MODIFICAR -->
-        <div class="modal fade" id="ModalModificar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar transaccion</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body" style="text-align: center;">
-                <input name="" id="" style="margin: 2px;">{{ criptos.action }}<br>
-                <input name="" id="" style="margin: 2px;">{{ criptos.crypto_code }}<br>
-                <input name="" id="" style="margin: 2px;">{{ criptos.crypto_amount }}<br>
-                <input name="" id="" style="margin: 2px;">{{ criptos.datetime }}<br>
-                <input name="" id="" style="margin: 2px;">{{ criptos.money }}
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal BORRAR 
-        <div class="modal fade" id="ModalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Estas seguro de eliminar la transaccion?</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-footer">
-                <button id="modalElim" class="btn btn-danger">Eliminar</button>
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancelar</button>
-              </div>
-            </div>
-          </div>
-        </div>-->
-
-
-
-
         <div class="col-md-1"></div>
       </div>
     </div>
@@ -125,11 +125,10 @@ import FooterView from '@/components/footerView.vue';
 export default {
   data() {
     return {
-      buttons: [{ imgDelete: '../assets/trash.svg', imgEdit: '../assets/pencil-square.svg' }],
       criptos: [],
       usuario: '',
       fechaHoraDesdeAPI: "",
-
+      verCrypto: [],
     };
   },
   created() {
@@ -140,28 +139,44 @@ export default {
   },
   methods: {
     fetchData() {
-      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio3-5fc7.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64bdbc3386d8c5613ded91e7'
         },
       })
         .then(response => {
           console.log('Respuesta de la API:', response.data);
 
           this.criptos = response.data;
+          this.ids = this.criptos._id
         })
         .catch(error => {
           console.error('Error al obtener los datos:', error);
         });
     },
-    eliminarTransaccion() {
-      axios.delete(`https://laboratorio3-f36a.restdb.io/rest/transactions/${this.criptos._id}`, {
+    eliminarTransaccion(transaccion) {
+      axios.delete(`https://laboratorio3-5fc7.restdb.io/rest/transactions/${transaccion._id}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64bdbc3386d8c5613ded91e7'
         },
       })
         .then(response => {
           console.log('Dato ELIMINADO de la API:', response.data);
+          this.fetchData();
+        })
+        .catch(error => {
+          console.error('Error al ELIMINAR dato:', error);
+        });
+    },
+    verTransaccion(transaccion) {
+      axios.get(`https://laboratorio3-5fc7.restdb.io/rest/transactions/${transaccion._id}`, {
+        headers: {
+          'x-apikey': '64bdbc3386d8c5613ded91e7'
+        },
+      })
+        .then(response => {
+          this.verCrypto = response.data;
+          console.log('VER dato de la API:', this.verCrypto)
         })
         .catch(error => {
           console.error('Error al ELIMINAR dato:', error);
@@ -204,5 +219,6 @@ export default {
 
 #btnBorrar:hover {
   background-color: red;
-}</style>
+}
+</style>
   
