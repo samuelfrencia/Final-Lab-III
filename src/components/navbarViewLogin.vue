@@ -13,7 +13,7 @@
               <router-link to="/" class="nav-link">Inicio</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/" class="nav-link">Comprar/Vender</router-link>
+              <router-link to="/" class="nav-link">Compraventa</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/" class="nav-link">Mis Crypto</router-link>

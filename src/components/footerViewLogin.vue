@@ -6,7 +6,7 @@
             <h3>Enlaces</h3>
             <ul>
               <li><router-link to="/">Inicio</router-link></li>
-              <li><router-link to="/">Comprar/Vender</router-link></li>
+              <li><router-link to="/">Compraventa</router-link></li>
               <li><router-link to="/">Mis Cryptos</router-link></li>
               <li><router-link to="/">Movimientos</router-link></li>
             </ul>
