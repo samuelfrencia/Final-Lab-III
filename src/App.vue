@@ -86,6 +86,13 @@ h3 {
     font-weight: bold;
     
 } 
+.cambio {
+  color: white;
+  text-decoration: none;
+}
+.cambio:hover {
+  color: #37E1E1;
+}
 ul {
     list-style: none;
     padding: 0;
