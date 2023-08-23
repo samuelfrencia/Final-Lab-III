@@ -68,8 +68,8 @@ import FooterView from '@/components/footerView.vue';
 import axios from 'axios';
 
 //const apiClient = axios.create({
-//  url: 'https://laboratorio3-5fc7.restdb.io/rest/',
-//  headers: { 'APIKEY': '64bdbc3386d8c5613ded91e7' }
+//  url: 'https://laboratorio3-f36a.restdb.io/rest/',
+//  headers: { 'APIKEY': '60eb09146661365596af552f' }
 //});
 
 export default {
@@ -140,9 +140,9 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio3-5fc7.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '64bdbc3386d8c5613ded91e7',
+              'x-apikey': '60eb09146661365596af552f',
               'Content-Type': 'application/json',
             },
           })
@@ -212,9 +212,9 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio3-5fc7.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '64bdbc3386d8c5613ded91e7',
+              'x-apikey': '60eb09146661365596af552f',
               'Content-Type': 'application/json',
             },
           })
