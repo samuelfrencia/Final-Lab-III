@@ -85,11 +85,11 @@
                             <option value="usdt">USDT</option>
                             <option value="dai">DAI</option>
                           </select><br>
-                          <em>Cantidad:</em><input v-model="verCrypto.crypto_amount" class="input-group-text"
+                          <em>Cantidad:</em><input type="number" v-model="verCrypto.crypto_amount" class="input-group-text"
                             id="componentIguales"><br>
-                          <em>Fecha:</em><input v-model="verCrypto.datetimeFormatted" class="input-group-text"
+                          <em>Fecha:</em><input type="datetime" v-model="verCrypto.datetimeFormatted" class="input-group-text"
                             id="componentIguales"><br>
-                          <em>Precio:</em><input v-model="verCrypto.money" class="input-group-text" id="componentIguales">
+                          <em>Precio:</em><input type="number" v-model="verCrypto.money" class="input-group-text" id="componentIguales">
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"
@@ -102,7 +102,8 @@
                   <button class="btn btn-danger" id="btnBorrar" @click="eliminarTransaccion(transaccion)">
                     <img src="../assets/trash.svg" alt="">
                   </button>
-                  <!-- Button/Modal BORRAR<div class="modal fade" id="ModalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel"
+                  <!-- Button/Modal BORRAR
+                    <div class="modal fade" id="ModalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
