@@ -18,7 +18,6 @@
                 <th>Fecha</th>
                 <th>Precio compra</th>
                 <th>Ganancias</th>
-                <th>IDs</th>
                 <th>Buttons</th>
               </tr>
             </thead>
@@ -27,10 +26,9 @@
                 <td>{{ transaccion.action }}</td>
                 <td>{{ transaccion.crypto_code.toUpperCase() }}</td>
                 <td>{{ transaccion.crypto_amount }}</td>
-                <td>{{ new Date (transaccion.datetime).toLocaleString() }}</td>
+                <td>{{ new Date(transaccion.datetime).toLocaleString() }}</td>
                 <td>${{ transaccion.money }}</td>
                 <td>${{ transaccion.ganancia }}</td>
-                <td>{{ transaccion._id }}</td>
                 <td>
 
                   <!-- Button/Modal VER -->
@@ -62,7 +60,7 @@
 
                   <!-- Button/Modal MODIFICAR-->
                   <button class="btn btn-warning" id="btnEdit" data-bs-toggle="modal" data-bs-target="#ModalModificar"
-                    @click="cargarTransaccionModif(transaccion)">
+                    @click="verTransaccion(transaccion)">
                     <img src="../assets/pencil-square.svg" alt="">
                   </button>
                   <div class="modal fade" id="ModalModificar" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -70,18 +68,25 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar transaccion</h1>
+                          <h1 class="modal-title fs-5" id="exampleModalLabel"  style="text-align: center;">Modificar transaccion</h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body" style="text-align: center;">
-                          <select style="margin: 2px;width: 200px" v-model="verModif.action">
-                            <option value="purchase" >purchase</option>
+                        <div class="modal-body" id="centrarDIV">
+                          <select class="form-select" v-model="verCrypto.action" id="miSelect" 
+                            style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center" >
+                            <option value="purchase">purchase</option>
                             <option value="sale">sale</option>
                           </select><br>
-                          <input v-model="verModif.crypto_code" style="margin: 2px;width: 200px"><br>
-                          <input v-model="verModif.crypto_amount" style="margin: 2px;width: 200px"><br>
-                          <input v-model="verModif.datetime" style="margin: 2px;width: 200px"><br>
-                          <input v-model="verModif.money" style="margin: 2px;width: 200px">
+                          <select class="form-select" v-model="verCrypto.crypto_code" id="miSelect" 
+                            style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center" >
+                            <option value="bitcoin">BITCOIN</option>
+                            <option value="ethereum">ETHEREUM</option>
+                            <option value="usdt">USDT</option>
+                            <option value="dai">DAI</option>
+                          </select><br>
+                          <input v-model="verCrypto.crypto_amount" class="input-group-text" id="componentIguales"><br>
+                          <input v-model="verCrypto.datetime" class="input-group-text" id="componentIguales"><br>
+                          <input v-model="verCrypto.money" class="input-group-text" id="componentIguales">
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Modificar</button>
@@ -89,13 +94,13 @@
                         </div>
                       </div>
                     </div>
-                  </div> 
+                  </div>
 
-                  <!-- Button/Modal BORRAR -->
-                  <button class="btn btn-danger" id="btnBorrar" data-bs-toggle="modal" data-bs-target="#ModalBorrar">
+                  
+                  <button class="btn btn-danger" id="btnBorrar" @click="eliminarTransaccion(transaccion)">
                     <img src="../assets/trash.svg" alt="">
                   </button>
-                  <div class="modal fade" id="ModalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel"
+                  <!-- Button/Modal BORRAR<div class="modal fade" id="ModalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -111,7 +116,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </td>
               </tr>
             </tbody>
@@ -146,7 +151,7 @@ export default {
         datetime: '',
         money: ''
       },
-      
+
     };
   },
   created() {
@@ -180,7 +185,8 @@ export default {
       })
         .then(response => {
           console.log('Dato ELIMINADO de la API:', response.data);
-          this.traerTransacciones();
+
+        this.traerTransacciones();
         })
         .catch(error => {
           console.error('Error al ELIMINAR dato:', error);
@@ -200,11 +206,11 @@ export default {
           console.error('Error al ELIMINAR dato:', error);
         });
     },
-    modificarTransaccion(transaccion) {
+    cargarTransaccionModif(transaccion) {
 
-//ARREGLAR EL MODIFICAR, QUE PRIMERO CARGUE LOS DATOS AL MODAL DE LA TRANSACCION ELEGIDA(BUTTON CARGAR DATOS AL MODAL)
-//BOTON DE MODAL YA, GUARDAR LOS CAMBIOS DE LA MODIFICACION
-//BOTON DE MODAL CANCELAR, QUE MANTENGA LOS DATOS IGUAL 
+      //ARREGLAR EL MODIFICAR, QUE PRIMERO CARGUE LOS DATOS AL MODAL DE LA TRANSACCION ELEGIDA(BUTTON CARGAR DATOS AL MODAL)
+      //BOTON DE MODAL YA, GUARDAR LOS CAMBIOS DE LA MODIFICACION
+      //BOTON DE MODAL CANCELAR, QUE MANTENGA LOS DATOS IGUAL 
       const transaccionModificada = {
         action: this.verModif.action,
         crypto_code: this.verModif.crypto_code,
@@ -226,7 +232,7 @@ export default {
         .catch(error => {
           console.error('Error al ELIMINAR dato:', error);
         });
-        
+
     },
   },
   components: {
@@ -237,6 +243,10 @@ export default {
 </script>
   
 <style scoped>
+#componentIguales{
+  width: 50%; 
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3)
+}
 #btnInfo {
   margin: 1px;
   border: 1px solid white;
@@ -265,6 +275,14 @@ export default {
 
 #btnBorrar:hover {
   background-color: red;
+}
+#centrarDIV{
+  width: 100%;
+    height: 100%; /* Ajustar la altura al 100% del viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrar verticalmente */
+    align-items: center; /* Centrar horizontalmente */
 }
 </style>
   
