@@ -67,10 +67,7 @@ import NavbarView from '@/components/navbarView.vue';
 import FooterView from '@/components/footerView.vue';
 import axios from 'axios';
 
-//const apiClient = axios.create({
-//  url: 'https://laboratorio3-f36a.restdb.io/rest/',
-//  headers: { 'APIKEY': '60eb09146661365596af552f' }
-//});
+
 
 export default {
   data() {
@@ -140,9 +137,9 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio-36cf.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '60eb09146661365596af552f',
+              'x-apikey': '64a5ccf686d8c5d256ed8fce',
               'Content-Type': 'application/json',
             },
           })
@@ -157,6 +154,7 @@ export default {
         this.cantidad = "";
         alert("¡Compra aceptada! Total: $" + this.totalCompra);
         this.totalCompra = "Precio total";
+        this.$router.push('/miscrypto');
       }
     },
     calcularVenta() {
@@ -212,9 +210,9 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio-36cf.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '60eb09146661365596af552f',
+              'x-apikey': '64a5ccf686d8c5d256ed8fce',
               'Content-Type': 'application/json',
             },
           })

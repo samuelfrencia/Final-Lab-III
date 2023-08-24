@@ -126,44 +126,7 @@ ul li a:hover {
     background-color: #323232;
 }
 
-/*DATOS*/
-.muestraDatos{
-    margin-bottom: 80px;
-    margin-top: 80px;
-}
 
-.cardDatosBalance {
-    width: fit-content;
-    height: fit-content;
-    text-align: left;
-    margin: 10px;
-    border: 1px solid whitesmoke;
-    border-radius: 10px;
-    padding: 20px;
-    
-} 
-.cardDatosCryptos{
-    width: 20%;
-    margin: 10px;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 20px;
-}
-table {
-    text-align: center;
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid #ccc;
-    padding: 8px;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-  }
   
 /*COMPRA DE CRYPTOS*/
 .cardCompra{

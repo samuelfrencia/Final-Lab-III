@@ -7,10 +7,14 @@
       <div class="muestraDatos">
         <div class="row" style="align-items: top;">
           <div class="cardDatosBalance col-md-3" style="padding: 20px;">
-            <h3>Balance estimado</h3>
-            <!--PONGO INPUT PARA MUESTRA, LO QUE QUIERO HACER ES CON UN p O h3 QUE MUESTRE MI SALDO TOTAL-->
-            <input type="number" disabled style="opacity: 50%;" v-model="saldoTotal" placeholder="sin saldo">
+            <h3>
+              Saldo total
+              <img :src="isBalanceVisible ? require('../assets/eye-fill.svg') : require('../assets/eye-slash-fill.svg')"
+                @click="toggleBalanceVisibility" style="width: 25px; cursor: pointer;">
+            </h3>
+            <h4><b>{{ isBalanceVisible ? '$' + formatNumber(totalMoney) : '****' }}</b></h4>
           </div>
+
           <div class="cardDatosCryptos col-md-7">
             <h2 style="text-align: center;color: red;">Mercado crypto (Bitso)</h2>
             <table class="table">
@@ -44,87 +48,107 @@
 import NavbarView from '@/components/navbarView.vue';
 import FooterView from '@/components/footerView.vue';
 export default {
-    data() {
-        return {
-            criptos: [
-                "BITCOIN",
-                "ETHEREUM",
-                "USDT",
-                "DAI",
-                "CARDANO",
-                "LITECOIN",
-                "USDC",
-                "UNISWAP",
-                "SOLANA",
-                "TRON",
-                "MANA",
-                "MATIC TOKEN",
-                "AAVE TOKEN",
-                "CHAINLINK TOKEN",
-                "XRP",
-                "PAX GOLD",
-                "ALGORAND",
-                "CHILIZ",
-                "SAND",
-                "AXIE INFINITY SHARD"
-            ],
-            datos: [],
-            saldoTotal: 0
-        };
+  data() {
+    return {
+      isBalanceVisible: true,
+      totalMoney: 0,
+      criptos: [
+        "BITCOIN",
+        "ETHEREUM",
+        "USDT",
+        "DAI",
+        "CARDANO",
+        "LITECOIN",
+        "USDC",
+        "UNISWAP",
+        "SOLANA",
+        "TRON",
+        "MANA",
+        "MATIC TOKEN",
+        "AAVE TOKEN",
+        "CHAINLINK TOKEN",
+        "XRP",
+        "PAX GOLD",
+        "ALGORAND",
+        "CHILIZ",
+        "SAND",
+        "AXIE INFINITY SHARD"
+      ],
+      datos: [],
+    };
+  },
+  mounted() {
+    this.obtenerDatos();
+    const totalMoney = parseFloat(localStorage.getItem('totalMoney'));
+    this.totalMoney = totalMoney;
+  },
+  methods: {
+    toggleBalanceVisibility() {
+      this.isBalanceVisible = !this.isBalanceVisible;
     },
-    mounted() {
-        this.obtenerDatos();
+    formatNumber(number) {
+    return number.toLocaleString();
+  },
+    traerDatos(url) {
+      return fetch(url)
+        .then(res => res.json())
+        .catch(error => {
+          console.error("Error al obtener los datos:", error);
+        });
     },
-    methods: {
-        traerDatos(url) {
-            return fetch(url)
-                .then(res => res.json())
-                .catch(error => {
-                console.error("Error al obtener los datos:", error);
-            });
-        },
-        tabla(dato, index) {
-            this.datos[index] = dato;
-        },
-        obtenerDatos() {
-            const apiUrls = [
-                "https://criptoya.com/api/bitso/btc/ars/0.1",
-                "https://criptoya.com/api/bitso/ETH/ars/0.1",
-                "https://criptoya.com/api/bitso/usdt/ars/0.1",
-                "https://criptoya.com/api/bitso/dai/ars/0.1",
-                "https://criptoya.com/api/bitso/ADA/ars/0.1",
-                "https://criptoya.com/api/bitso/LTC/ars/0.1",
-                "https://criptoya.com/api/bitso/usdc/ars/0.1",
-                "https://criptoya.com/api/bitso/UNI/ars/0.1",
-                "https://criptoya.com/api/bitso/sol/ars/0.1",
-                "https://criptoya.com/api/bitso/trx/ars/0.1",
-                "https://criptoya.com/api/bitso/mana/ars/0.1",
-                "https://criptoya.com/api/bitso/matic/ars/0.1",
-                "https://criptoya.com/api/bitso/aave/ars/0.1",
-                "https://criptoya.com/api/bitso/link/ars/0.1",
-                "https://criptoya.com/api/bitso/xrp/ars/0.1",
-                "https://criptoya.com/api/bitso/paxg/ars/0.1",
-                "https://criptoya.com/api/bitso/algo/ars/0.1",
-                "https://criptoya.com/api/bitso/chz/ars/0.1",
-                "https://criptoya.com/api/bitso/sand/ars/0.1",
-                "https://criptoya.com/api/bitso/axs/ars/0.1"
-            ];
-            const fetchPromises = apiUrls.map(url => this.traerDatos(url));
-            Promise.all(fetchPromises)
-                .then(data => {
-                data.forEach((apiResult, index) => {
-                    this.tabla(apiResult, index);
-                });
-            });
-        }
+    tabla(dato, index) {
+      this.datos[index] = dato;
     },
-    components: { NavbarView,
-                  FooterView
+    obtenerDatos() {
+      const apiUrls = [
+        "https://criptoya.com/api/bitso/btc/ars/0.1",
+        "https://criptoya.com/api/bitso/ETH/ars/0.1",
+        "https://criptoya.com/api/bitso/usdt/ars/0.1",
+        "https://criptoya.com/api/bitso/dai/ars/0.1",
+        "https://criptoya.com/api/bitso/ADA/ars/0.1",
+        "https://criptoya.com/api/bitso/LTC/ars/0.1",
+        "https://criptoya.com/api/bitso/usdc/ars/0.1",
+        "https://criptoya.com/api/bitso/UNI/ars/0.1",
+        "https://criptoya.com/api/bitso/sol/ars/0.1",
+        "https://criptoya.com/api/bitso/trx/ars/0.1",
+        "https://criptoya.com/api/bitso/mana/ars/0.1",
+        "https://criptoya.com/api/bitso/matic/ars/0.1",
+        "https://criptoya.com/api/bitso/aave/ars/0.1",
+        "https://criptoya.com/api/bitso/link/ars/0.1",
+        "https://criptoya.com/api/bitso/xrp/ars/0.1",
+        "https://criptoya.com/api/bitso/paxg/ars/0.1",
+        "https://criptoya.com/api/bitso/algo/ars/0.1",
+        "https://criptoya.com/api/bitso/chz/ars/0.1",
+        "https://criptoya.com/api/bitso/sand/ars/0.1",
+        "https://criptoya.com/api/bitso/axs/ars/0.1"
+      ];
+      const fetchPromises = apiUrls.map(url => this.traerDatos(url));
+      Promise.all(fetchPromises)
+        .then(data => {
+          data.forEach((apiResult, index) => {
+            this.tabla(apiResult, index);
+          });
+        });
     }
+  },
+  components: {
+    NavbarView,
+    FooterView
+  }
 };
 </script>
   
 <style scoped>
-/* Agrega los estilos CSS aquí */
+.muestraDatos {
+  margin-bottom: 80px;
+  margin-top: 80px;
+}
+
+.cardDatosCryptos {
+  border: 1px solid black;
+  border-radius: 20px;
+  text-align: center;
+  padding: 15px;
+}
 </style>
   

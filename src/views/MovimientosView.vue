@@ -9,140 +9,140 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
           <h2 style="text-align: center;">Mis movimientos</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Venta/Compra</th>
-                <th>Crypto</th>
-                <th>Cantidad</th>
-                <th>Fecha</th>
-                <th>Precio compra</th>
-                <th>Ganancias</th>
-                <th>Buttons</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="transaccion in criptos" :key="transaccion._id">
-                <td>{{ transaccion.action }}</td>
-                <td>{{ transaccion.crypto_code.toUpperCase() }}</td>
-                <td>{{ transaccion.crypto_amount }}</td>
-                <td>{{ transaccion.datetimeFormatted }}</td>
-                <td>${{ transaccion.money }}</td>
-                <td>${{ transaccion.ganancia }}</td>
-                <td>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Accion</th>
+                  <th>Crypto</th>
+                  <th>Cantidad</th>
+                  <th>Fecha</th>
+                  <th>Precio compra</th>
+                  <th>Ganancias</th>
+                  <th>Buttons</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr v-for="transaccion in criptos" :key="transaccion._id">
+                  <td>{{ transaccion.action }}</td>
+                  <td>{{ transaccion.crypto_code.toUpperCase() }}</td>
+                  <td>{{ transaccion.crypto_amount }}</td>
+                  <td>{{ transaccion.datetimeFormatted }}</td>
+                  <td>${{ transaccion.money }}</td>
+                  <td>${{ transaccion.ganancia }}</td>
+                  <td>
 
-                  <!-- Button/Modal VER -->
-                  <button class="btn btn-info" id="btnInfo" data-bs-toggle="modal" data-bs-target="#ModalVer"
-                    @click="verTransaccion(transaccion)">
-                    <img src="../assets/eye.svg" alt="">
-                  </button>
-                  <div class="modal fade" id="ModalVer" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Datos de la transaccion</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" style="text-align: center;">
-                          <p><em>Accion:</em> <b>{{ verCrypto.action }}</b></p>
-                          <p><em>Criptomoneda:</em> <b>{{ verCrypto.crypto_code }}</b></p>
-                          <p><em>Cantidad:</em> <b>{{ verCrypto.crypto_amount }}</b></p>
-                          <p><em>Fecha:</em> <b>{{ verCrypto.datetimeFormatted }}</b></p>
-                          <p><em>Precio:</em> <b>${{ verCrypto.money }}</b></p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
+                    <!-- Button/Modal VER -->
+                    <button class="btn btn-info" id="btnInfo" data-bs-toggle="modal" data-bs-target="#ModalVer"
+                      @click="verTransaccion(transaccion)">
+                      <img src="../assets/eye.svg" alt="">
+                    </button>
+                    <div class="modal fade" id="ModalVer" tabindex="-1" aria-labelledby="exampleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Datos de la transaccion</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body" style="text-align: center;">
+                            <p><em>Accion:</em> <b>{{ verCrypto.action }}</b></p>
+                            <p><em>Criptomoneda:</em> <b>{{ verCrypto.crypto_code }}</b></p>
+                            <p><em>Cantidad:</em> <b>{{ verCrypto.crypto_amount }}</b></p>
+                            <p><em>Fecha:</em> <b>{{ verCrypto.datetimeFormatted }}</b></p>
+                            <p><em>Precio:</em> <b>${{ verCrypto.money }}</b></p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <!-- Button/Modal MODIFICAR-->
-                  <button class="btn btn-warning" id="btnEdit" data-bs-toggle="modal" data-bs-target="#ModalModificar"
-                    @click="verTransaccion(transaccion)">
-                    <img src="../assets/pencil-square.svg" alt="">
-                  </button>
-                  <div class="modal fade" id="ModalModificar" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar transaccion</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="centrarDIV">
-                          <em>Accion:</em><select class="form-select" v-model="verCrypto.action" id="miSelect"
-                            style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center">
-                            <option value="purchase">purchase</option>
-                            <option value="sale">sale</option>
-                          </select><br>
-                          <em>Criptomoneda:</em><select class="form-select" v-model="verCrypto.crypto_code" id="miSelect"
-                            style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center">
-                            <option value="bitcoin">BITCOIN</option>
-                            <option value="ethereum">ETHEREUM</option>
-                            <option value="usdt">USDT</option>
-                            <option value="dai">DAI</option>
-                          </select><br>
-                          <em>Cantidad:</em><input type="number" v-model="verCrypto.crypto_amount" class="input-group-text"
-                            id="componentIguales"><br>
-                          <em>Fecha:</em><input type="datetime" v-model="verCrypto.datetimeFormatted" class="input-group-text"
-                            id="componentIguales"><br>
-                          <em>Precio:</em><input type="number" v-model="verCrypto.money" class="input-group-text" id="componentIguales">
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"
-                            @click="modificarTransaccion(verCrypto)">Modificar</button>
-                          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
+                    <!-- Button/Modal MODIFICAR-->
+                    <button class="btn btn-warning" id="btnEdit" data-bs-toggle="modal" data-bs-target="#ModalModificar"
+                      @click="verTransaccion(transaccion)">
+                      <img src="../assets/pencil-square.svg" alt="">
+                    </button>
+                    <div class="modal fade" id="ModalModificar" tabindex="-1" aria-labelledby="exampleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar transaccion</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body" id="centrarDIV">
+                            <em>Accion:</em><select class="form-select" v-model="verCrypto.action" id="miSelect" 
+                              style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center">
+                              <option value="purchase">purchase</option>
+                              <option value="sale">sale</option>
+                            </select><br>
+                            <em>Criptomoneda:</em><select class="form-select" v-model="verCrypto.crypto_code"
+                              id="miSelect"
+                              style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center">
+                              <option value="bitcoin">BITCOIN</option>
+                              <option value="ethereum">ETHEREUM</option>
+                              <option value="usdt">USDT</option>
+                              <option value="dai">DAI</option>
+                            </select><br>
+                            <em>Cantidad:</em><input type="number" v-model="verCrypto.crypto_amount"
+                              class="input-group-text" id="componentIguales"><br>
+                            <em>Fecha:</em><input type="datetime" v-model="verCrypto.datetimeFormatted"
+                              class="input-group-text" id="componentIguales"><br>
+                            <em>Precio:</em><input type="number" v-model="verCrypto.money" class="input-group-text"
+                              id="componentIguales">
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"
+                              @click="modificarTransaccion(verCrypto)">Modificar</button>
+                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <!--BUTTON BORRAR-->
-                  <button class="btn btn-danger" id="btnBorrar" data-bs-toggle="modal" data-bs-target="#ModalEliminar"
-                    @click="verTransaccion(transaccion)">
-                    <img src="../assets/trash.svg" alt="">
-                  </button>
-                  <div class="modal fade" id="ModalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">¿Esta seguro de eliminar esta transaccion?</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="centrarDIV">
-                          <em>Accion:</em><select class="form-select" v-model="verCrypto.action" id="miSelect" disabled
-                            style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center">
-                            <option value="purchase">purchase</option>
-                            <option value="sale">sale</option>
-                          </select><br>
-                          <em>Criptomoneda:</em><select class="form-select" v-model="verCrypto.crypto_code" id="miSelect" disabled
-                            style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center">
-                            <option value="bitcoin">BITCOIN</option>
-                            <option value="ethereum">ETHEREUM</option>
-                            <option value="usdt">USDT</option>
-                            <option value="dai">DAI</option>
-                          </select><br>
-                          <em>Cantidad:</em><input type="number" v-model="verCrypto.crypto_amount" class="input-group-text" disabled
-                            id="componentIguales"><br>
-                          <em>Fecha:</em><input type="datetime" v-model="verCrypto.datetimeFormatted" class="input-group-text" disabled
-                            id="componentIguales"><br>
-                          <em>Precio:</em><input type="number" v-model="verCrypto.money" class="input-group-text" id="componentIguales" disabled>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"
-                            @click="eliminarTransaccion(verCrypto)">Eliminar</button>
-                          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
+                    <!--BUTTON BORRAR-->
+                    <button class="btn btn-danger" id="btnBorrar" data-bs-toggle="modal" data-bs-target="#ModalEliminar"
+                      @click="verTransaccion(transaccion)">
+                      <img src="../assets/trash.svg" alt="">
+                    </button>
+                    <div class="modal fade" id="ModalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">¿Esta seguro de eliminar esta transaccion?
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body" id="centrarDIV">
+                            <em>Accion:</em><input class="input-group-text" v-model="verCrypto.action" id="miSelect"
+                              disabled
+                              style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center"><br>
+                            <em>Criptomoneda:</em><input class="input-group-text" v-model="verCrypto.crypto_code"
+                              id="miSelect" disabled
+                              style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center"><br>
+                            <em>Cantidad:</em><input type="number" v-model="verCrypto.crypto_amount"
+                              class="input-group-text" disabled id="componentIguales"><br>
+                            <em>Fecha:</em><input type="datetime" v-model="verCrypto.datetimeFormatted"
+                              class="input-group-text" disabled id="componentIguales"><br>
+                            <em>Precio:</em><input type="number" v-model="verCrypto.money" class="input-group-text"
+                              id="componentIguales" disabled>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"
+                              @click="eliminarTransaccion(verCrypto)">Eliminar</button>
+                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="col-md-1"></div>
       </div>
@@ -176,9 +176,9 @@ export default {
   },
   methods: {
     traerTransacciones() {
-      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64a5ccf686d8c5d256ed8fce'
         },
       })
         .then(response => {
@@ -200,7 +200,16 @@ export default {
             return transaccion;
 
           });
+          // Calcular la suma de dinero y asegurarse de que no tenga decimales
+          const totalMoney = this.criptos.reduce((total, transaccion) => total + parseFloat(transaccion.money), 0);
 
+          // Redondear hacia abajo para obtener un número entero
+          const totalMoneySinDecimales = Math.floor(totalMoney);
+
+          console.log('Total de dinero:', totalMoneySinDecimales);
+
+          // Guardar el totalMoney en localStorage
+          localStorage.setItem('totalMoney', totalMoneySinDecimales);
           this.ids = this.criptos.map(cripto => cripto._id);
         })
         .catch(error => {
@@ -208,9 +217,9 @@ export default {
         });
     },
     eliminarTransaccion(transaccion) {
-      axios.delete(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, {
+      axios.delete(`https://laboratorio-36cf.restdb.io/rest/transactions/${transaccion._id}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64a5ccf686d8c5d256ed8fce'
         },
       })
         .then(response => {
@@ -225,9 +234,9 @@ export default {
     verTransaccion(transaccion) {
       this.verCrypto = {};
 
-      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, {
+      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions/${transaccion._id}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64a5ccf686d8c5d256ed8fce'
         },
       })
         .then(response => {
@@ -264,9 +273,9 @@ export default {
         money: this.verCrypto.money
       }
 
-      axios.patch(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, transaccionModificada, {
+      axios.patch(`https://laboratorio-36cf.restdb.io/rest/transactions/${transaccion._id}`, transaccionModificada, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64a5ccf686d8c5d256ed8fce'
         },
       })
         .then(response => {
