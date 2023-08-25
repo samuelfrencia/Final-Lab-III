@@ -286,7 +286,6 @@ export default {
         .catch(error => {
           console.error('Error al ELIMINAR dato:', error);
         });
-
     },
   },
   components: {

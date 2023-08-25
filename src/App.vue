@@ -126,7 +126,10 @@ ul li a:hover {
     background-color: #323232;
 }
 
-
+.muestraDatos{
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
   
 /*COMPRA DE CRYPTOS*/
 .cardCompra{

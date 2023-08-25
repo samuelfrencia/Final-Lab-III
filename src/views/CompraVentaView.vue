@@ -190,16 +190,13 @@ export default {
       }
       else {
         const fechaHora = new Date();
-
         const dia = String(fechaHora.getDate()).padStart(2, '0');
         const mes = String(fechaHora.getMonth() + 1).padStart(2, '0');
         const anio = fechaHora.getFullYear();
         const hora = String(fechaHora.getHours()).padStart(2, '0');
         const min = String(fechaHora.getMinutes()).padStart(2, '0');
         const seg = String(fechaHora.getSeconds()).padStart(2, '0');
-
         this.horaCompra = anio + "-" + mes + "-" + dia + " " + hora + ":" + min + ":" + seg;
-
         const datos = {
           _id: this.idTransaccion,
           user_id: this.usuario,
@@ -223,12 +220,11 @@ export default {
           .catch(error => {
             console.error(error);
           });
-
-
         this.criptoSeleccionadaV = "";
         this.cantidadV = "";
         alert("Venta aceptada! Total: " + this.totalVenta);
         this.totalVenta = "Precio total";
+        this.$router.push('/miscrypto');
       }
     },
   },
