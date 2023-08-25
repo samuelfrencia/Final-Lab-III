@@ -74,13 +74,13 @@ export default {
     return {
       cantidad: 0,
       criptoSeleccionada: "",
-      totalCompra: "Precio total",
       criptos: [
         { nombre: "BITCOIN", api: "https://criptoya.com/api/bitso/btc/ars/0.1" },
         { nombre: "ETHEREUM", api: "https://criptoya.com/api/bitso/ETH/ars/0.1" },
         { nombre: "USDT", api: "https://criptoya.com/api/bitso/usdt/ars/0.1" },
         { nombre: "DAI", api: "https://criptoya.com/api/bitso/dai/ars/0.1" },
-      ],
+      ],      
+      totalCompra: "Precio total",
       cantidadV: 0,
       criptoSeleccionadaV: "",
       totalVenta: "Precio total",
