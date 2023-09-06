@@ -12,9 +12,8 @@
               <img :src="isBalanceVisible ? require('../assets/eye-fill.svg') : require('../assets/eye-slash-fill.svg')"
                 @click="toggleBalanceVisibility" style="width: 25px; cursor: pointer;">
             </h3>
-            <h4><b>{{ isBalanceVisible ? '$' + formatNumber(totalMoney) : '****' }}</b></h4>
+            <h4><b>{{ isBalanceVisible ? '$' + parseFloat(totalSaldoMysCrypto).toFixed(2) : '****' }}</b></h4>
           </div>
-
           <div class="cardDatosCryptos col-md-7">
             <h2 style="text-align: center;color: red;">Mercado crypto (Bitso)</h2>
             <table class="table">
@@ -76,22 +75,18 @@ export default {
         "AXIE INFINITY SHARD"
       ],
       datos: [],
+      totalSaldoMysCrypto: 0,
     };
   },
   mounted() {
     this.usuario = JSON.parse(localStorage.getItem('user'))
-    this.traerTransacciones();
+    this.traerTransaccion();
     this.obtenerDatos();
-    const totalMoney = parseFloat(localStorage.getItem('totalMoney'));
-    this.totalMoney = totalMoney;
   },
   methods: {
     toggleBalanceVisibility() {
       this.isBalanceVisible = !this.isBalanceVisible;
     },
-    formatNumber(number) {
-    return number.toLocaleString();
-  },
     traerDatos(url) {
       return fetch(url)
         .then(res => res.json())
@@ -133,47 +128,23 @@ export default {
           });
         });
     },
-    traerTransacciones() {
-      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+    traerTransaccion() {
+      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
-          console.log('Respuesta de la API:', response.data);
-
-          this.criptos = response.data.map(transaccion => {
-            const fechaUTC = new Date(transaccion.datetime);
-            const offset = 3; // Diferencia horaria en horas para Buenos Aires
-            const fechaBuenosAires = new Date(fechaUTC.getTime() + offset * 60 * 60 * 1000);
-
-            const dia = fechaBuenosAires.getDate().toString().padStart(2, '0');
-            const mes = (fechaBuenosAires.getMonth() + 1).toString().padStart(2, '0');
-            const anio = fechaBuenosAires.getFullYear();
-            const horas = fechaBuenosAires.getHours().toString().padStart(2, '0');
-            const minutos = fechaBuenosAires.getMinutes().toString().padStart(2, '0');
-
-            transaccion.datetimeFormatted = `${dia}/${mes}/${anio}, ${horas}:${minutos}`;
-
-            return transaccion;
-
-          });
-          // Calcular la suma de dinero y asegurarse de que no tenga decimales
-          const totalMoney = this.criptos.reduce((total, transaccion) => total + parseFloat(transaccion.money), 0);
-
-          // Redondear hacia abajo para obtener un número entero
-          const totalMoneySinDecimales = Math.floor(totalMoney);
-
-          console.log('Total de dinero:', totalMoneySinDecimales);
-
-          // Guardar el totalMoney en localStorage
-          localStorage.setItem('totalMoney', totalMoneySinDecimales);
-          
+          this.criptos = response.data;
+          for (let i = 0; i < this.criptos.length; i++) {
+            let element = this.criptos[i];
+            this.totalSaldoMysCrypto += parseFloat(element.money)
+          }
         })
         .catch(error => {
           console.error('Error al obtener los datos:', error);
         });
-    },
+    }
   },
   components: {
     NavbarView,

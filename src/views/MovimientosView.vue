@@ -80,13 +80,13 @@
                             </select><br>
                             <em>Criptomoneda:</em><select class="form-select" v-model="verCrypto.crypto_code"
                               id="miSelect"
-                              style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center">
+                              style="width: 50%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);text-align:center" @change="calcularModif(criptoSeleccionadaModif)">
                               <option value="bitcoin">BITCOIN</option>
                               <option value="ethereum">ETHEREUM</option>
                               <option value="usdt">USDT</option>
                               <option value="dai">DAI</option>
                             </select><br>
-                            <em>Cantidad:</em><input type="number" v-model="verCrypto.crypto_amount"
+                            <em>Cantidad:</em><input type="number" v-model="verCrypto.crypto_amount" @input="calcularModif(cantidadModif)"
                               class="input-group-text" id="componentIguales"><br>
                             <em>Fecha:</em><input type="datetime" v-model="verCrypto.datetimeFormatted"
                               class="input-group-text" id="componentIguales"><br>
@@ -165,7 +165,15 @@ export default {
       usuario: '',
       fechaHoraDesdeAPI: "",
       verCrypto: [],
-      verModif: []
+      verModif: [],
+      cantidadModif: 0,
+      criptoSeleccionadaModif: "",
+      criptosModif: [
+        { nombre: "BITCOIN", api: "https://criptoya.com/api/bitso/btc/ars/0.1" },
+        { nombre: "ETHEREUM", api: "https://criptoya.com/api/bitso/ETH/ars/0.1" },
+        { nombre: "USDT", api: "https://criptoya.com/api/bitso/usdt/ars/0.1" },
+        { nombre: "DAI", api: "https://criptoya.com/api/bitso/dai/ars/0.1" },
+      ], 
     };
   },
   created() {
@@ -176,9 +184,9 @@ export default {
   },
   methods: {
     traerTransacciones() {
-      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
@@ -217,9 +225,9 @@ export default {
         });
     },
     eliminarTransaccion(transaccion) {
-      axios.delete(`https://laboratorio-36cf.restdb.io/rest/transactions/${transaccion._id}`, {
+      axios.delete(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
@@ -234,26 +242,22 @@ export default {
     verTransaccion(transaccion) {
       this.verCrypto = {};
 
-      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions/${transaccion._id}`, {
+      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
           this.verCrypto = response.data;
-
           const fechaUTC = new Date(this.verCrypto.datetime);
           const offset = 3; // Diferencia horaria en horas para Buenos Aires
           const fechaBuenosAires = new Date(fechaUTC.getTime() + offset * 60 * 60 * 1000);
-
           const dia = fechaBuenosAires.getDate().toString().padStart(2, '0');
           const mes = (fechaBuenosAires.getMonth() + 1).toString().padStart(2, '0');
           const anio = fechaBuenosAires.getFullYear();
           const horas = fechaBuenosAires.getHours().toString().padStart(2, '0');
           const minutos = fechaBuenosAires.getMinutes().toString().padStart(2, '0');
-
           this.verCrypto.datetimeFormatted = `${dia}/${mes}/${anio}, ${horas}:${minutos}`;
-
           console.log('VER transaccion de la API:', this.verCrypto);
         })
         .catch(error => {
@@ -261,7 +265,6 @@ export default {
         });
     },
     modificarTransaccion(transaccion) {
-
       //ARREGLAR EL MODIFICAR, QUE PRIMERO CARGUE LOS DATOS AL MODAL DE LA TRANSACCION ELEGIDA(BUTTON CARGAR DATOS AL MODAL)
       //BOTON DE MODAL YA, GUARDAR LOS CAMBIOS DE LA MODIFICACION
       //BOTON DE MODAL CANCELAR, QUE MANTENGA LOS DATOS IGUAL 
@@ -273,9 +276,9 @@ export default {
         money: this.verCrypto.money
       }
 
-      axios.patch(`https://laboratorio-36cf.restdb.io/rest/transactions/${transaccion._id}`, transaccionModificada, {
+      axios.patch(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, transaccionModificada, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
@@ -285,6 +288,33 @@ export default {
         })
         .catch(error => {
           console.error('Error al ELIMINAR dato:', error);
+        });
+    },
+    calcularModif() {
+      if (!this.cantidadModif || this.cantidadModif <= 0) {
+        this.totalCompra = "Precio total";
+        return;
+      }
+      const criptoSeleccionadaModif = this.criptosModif.find(c => c.nombre === this.criptoSeleccionadaModif);
+      if (!criptoSeleccionadaModif) {
+        this.totalCompra = "Precio total";
+        return;
+      }
+      this.obtenerPrecioCripto(criptoSeleccionadaModif.api, this.cantidadModif)
+        .then((totalCompra) => {
+          this.totalCompra = totalCompra.toFixed(2);
+        })
+        .catch((error) => {
+          this.totalCompra = "Precio total";
+          alert("Ha ocurrido un error al obtener los datos de la API.");
+          console.error(error);
+        });
+    },
+    obtenerPrecioCriptoModif(api, cantidadModif) {
+      return axios.get(api)
+        .then((response) => {
+          const precioCripto = response.data.totalAsk;
+          return cantidadModif * precioCripto;
         });
     },
   },

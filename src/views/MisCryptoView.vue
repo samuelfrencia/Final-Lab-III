@@ -9,7 +9,7 @@
         <div class="col-md-10">
           <h2 style="text-align: center;">Mi billetera</h2>
           <div class="table-responsive">
-            <table class="table table-dark text-center">
+            <table class="table table-dark text-center" >
               <thead>
                 <tr>
                   <th>Crypto</th>
@@ -18,10 +18,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="transaccion in criptos" :key="transaccion._id" class="table-active">
-                  <td>{{ transaccion.crypto_code.toUpperCase() }}</td>
-                  <td>{{ transaccion.crypto_amount }}</td>
-                  <td>${{ transaccion.money }}</td>
+                <tr v-for="crypto in misCryptos" :key="crypto.id" class="table-active">
+                  <td>{{ crypto.nombre }}</td>
+                  <td>{{ crypto.cantidad }}</td>
+                  <td>${{ (crypto.totalCrypto).toFixed(2) }}</td>
+                </tr>
+                <tr>
+                  <td class="table-borderless table-light" style="border: none;"></td>
+                  <td class="table-borderless table-light" style="border: none;"></td>
+                  <td class="table-info" colspan="1">SALDO: ${{ parseFloat(totalSaldoMysCrypto).toFixed(2) }}</td>
                 </tr>
               </tbody>
             </table>
@@ -45,7 +50,14 @@ export default {
   data() {
     return {
       criptos: [],
-      usuario: ''
+      usuario: '',
+      misCryptos: {
+        BITCOIN: { id: 0, nombre: 'BITCOIN', cantidad: 0, totalCrypto: 0 },
+        ETHEREUM: { id: 1, nombre: 'ETHEREUM', cantidad: 0, totalCrypto: 0 },
+        USDT: { id: 2, nombre: 'USDT', cantidad: 0, totalCrypto: 0 },
+        DAI: { id: 3, nombre: 'DAI', cantidad: 0, totalCrypto: 0 }
+      },
+      totalSaldoMysCrypto: 0,
     };
   },
   created() {
@@ -56,26 +68,34 @@ export default {
   },
   methods: {
     fetchData() {
-      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
-          console.log('Respuesta de la API:', response.data);
           this.criptos = response.data;
-
-          // Calcular la suma de dinero y asegurarse de que no tenga decimales
-          const totalMoney = this.criptos.reduce((total, transaccion) => total + parseFloat(transaccion.money), 0);
-
-          // Redondear hacia abajo para obtener un número entero
-          const totalMoneySinDecimales = Math.floor(totalMoney);
-
-          console.log('Total de dinero:', totalMoneySinDecimales);
-
-          // Guardar el totalMoney en localStorage
-          localStorage.setItem('totalMoney', totalMoneySinDecimales);
-
+          for (let i = 0; i < this.criptos.length; i++) {
+            let element = this.criptos[i];
+            if (element.crypto_code == 'bitcoin') {
+              this.misCryptos.BITCOIN.cantidad += parseFloat(element.crypto_amount);
+              this.misCryptos.BITCOIN.totalCrypto += parseFloat(element.money)
+            }
+            if (element.crypto_code == 'ethereum') {
+              this.misCryptos.ETHEREUM.cantidad += parseFloat(element.crypto_amount);
+              this.misCryptos.ETHEREUM.totalCrypto += parseFloat(element.money)
+            }
+            if (element.crypto_code == 'usdt') {
+              this.misCryptos.USDT.cantidad += parseFloat(element.crypto_amount);
+              this.misCryptos.USDT.totalCrypto += parseFloat(element.money)
+            }
+            if (element.crypto_code == 'dai') {
+              this.misCryptos.DAI.cantidad += parseFloat(element.crypto_amount);
+              this.misCryptos.DAI.totalCrypto += parseFloat(element.money)
+            }
+            this.totalSaldoMysCrypto += parseFloat(element.money)
+            localStorage.setItem('totalSaldo', this.totalSaldoMysCrypto);
+          }
         })
         .catch(error => {
           console.error('Error al obtener los datos:', error);
@@ -93,6 +113,4 @@ export default {
 };
 </script>
   
-<style>
-/* Estilos del archivo style.css */
-</style>
+<style scoped></style>
