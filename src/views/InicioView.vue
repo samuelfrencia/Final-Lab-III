@@ -51,7 +51,6 @@ export default {
   data() {
     return {
       isBalanceVisible: true,
-      totalMoney: 0,
       monedas: [
         "BITCOIN",
         "ETHEREUM",

@@ -3,38 +3,39 @@
     <!--NAVBAR-->
     <NavbarView></NavbarView>
     <!--MIS CRYPTOS-->
-    <div class="muestraDatos">
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-          <h2 style="text-align: center;">Mi billetera</h2>
-          <div class="table-responsive">
-            <table class="table table-dark text-center" >
-              <thead>
-                <tr>
-                  <th>Crypto</th>
-                  <th>Cantidad</th>
-                  <th>Total ($)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="crypto in misCryptos" :key="crypto.id" class="table-active">
-                  <td>{{ crypto.nombre }}</td>
-                  <td>{{ crypto.cantidad }}</td>
-                  <td>${{ (crypto.totalCrypto).toFixed(2) }}</td>
-                </tr>
-                <tr>
-                  <td class="table-borderless table-light" style="border: none;"></td>
-                  <td class="table-borderless table-light" style="border: none;"></td>
-                  <td class="table-info" colspan="1">SALDO: ${{ parseFloat(totalSaldoMysCrypto).toFixed(2) }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    <div class="muestraDatos ">
+      <div class="container">
+        <h2 style="text-align: center;">Mi billetera</h2>
+        <div class="table-responsive">
+          <table class="table table-dark text-center">
+            <thead>
+              <tr>
+                <th>Crypto</th>
+                <th>Cantidad</th>
+                <th>Total ($)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="crypto in misCryptos" :key="crypto.id" class="table-active">
+                <td>{{ crypto.nombre }}</td>
+                <td>{{ crypto.cantidad }}</td>
+                <td>${{ (crypto.totalCrypto).toFixed(2) }}</td>
+              </tr>
+              <tr>
+                <td class="table-borderless table-light" style="border: none;"></td>
+                <td class="table-borderless table-light" style="border: none;"></td>
+                <td class="table-info" colspan="1">SALDO: ${{ parseFloat(totalSaldoMysCrypto).toFixed(2) }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="col-md-1"></div>
       </div>
     </div>
+    <hr class="container" style="opacity: 15%;width: 80%;">
+    <br>
+    <h4 style="text-align: center;">PROXIMAMENTE GRAFICOS </h4>
+    <!--PROBAR HACER QUE CUANDO SE TOQUE UN BOTON SE MUESTRE EN FORMA DE GRAFICO Y SI LO VOLVES A TOCAR QUE MUESTRE LA TABLA COMO ESTA-->
     <br><br>
     <!--FOOTER-->
     <FooterView></FooterView>
@@ -64,10 +65,10 @@ export default {
     this.usuario = JSON.parse(localStorage.getItem('user'))
   },
   mounted() {
-    this.fetchData(); // Llama al método para obtener los datos al cargar el componente
+    this.traerTransacciones(); // Llama al método para obtener los datos al cargar el componente
   },
   methods: {
-    fetchData() {
+    traerTransacciones() {
       axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
           'x-apikey': '60eb09146661365596af552f'
