@@ -2,6 +2,7 @@
   <div>
     <!--NAVBAR-->
     <NavbarView></NavbarView>
+    
     <!--INICIO SECION-->
     <div class="container">
       <div class="muestraDatos">
@@ -12,7 +13,8 @@
               <img :src="isBalanceVisible ? require('../assets/eye-fill.svg') : require('../assets/eye-slash-fill.svg')"
                 @click="toggleBalanceVisibility" style="width: 25px; cursor: pointer;">
             </h3>
-            <h4><b>{{ isBalanceVisible ? '$' + parseFloat(totalSaldoMysCrypto).toFixed(2) : '****' }}</b></h4>
+            <h4 v-if="mostrar"><b>{{ isBalanceVisible ? '$' + parseFloat(totalSaldoMysCrypto).toFixed(2) : '****' }}</b></h4>
+            <h4 v-else>...</h4>
           </div>
           <div class="cardDatosCryptos col-md-7 container">
             <h2 style="text-align: center;color: red;">Mercado crypto (Bitso)</h2>
@@ -53,6 +55,7 @@ export default {
       totalSaldoMysCrypto: 0,
       isBalanceVisible: true,
       monedas: [],
+      mostrar: false
     };
   },
   mounted() {
@@ -102,9 +105,9 @@ export default {
       this.isBalanceVisible = !this.isBalanceVisible;
     },
     traerTransaccion() {
-      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64a5ccf686d8c5d256ed8fce'
         },
       })
         .then(response => {
@@ -112,6 +115,7 @@ export default {
           for (let i = 0; i < this.criptos.length; i++) {
             let element = this.criptos[i];
             this.totalSaldoMysCrypto += parseFloat(element.money)
+            this.mostrar = true;
           }
         })
         .catch(error => {
@@ -133,7 +137,7 @@ export default {
 }
 
 .cardDatosCryptos {
-  border: 1px solid black;
+  border: 0.5px solid black;
   border-radius: 20px;
   text-align: center;
   padding: 15px;

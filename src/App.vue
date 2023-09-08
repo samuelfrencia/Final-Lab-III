@@ -130,34 +130,7 @@ ul li a:hover {
     margin-top: 100px;
 }
   
-/*COMPRA DE CRYPTOS*/
-.cardCompra{
-    border: 1px solid darkgray;
-    border-radius: 15px;
-    padding: 25px;
-    text-align: center;
 
-}
-.btnComprarVender{
-    width: 90px;
-    padding: 6px;
-    background-color: #323232;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-.btnComprarVender:hover{
-    background-color: black ;
-}
-#miSelect {
-    border: 2px solid #ccc;
-    padding: 5px;
-  }
-  
-#miSelect:focus {
-    border-color: black;
-  }
   </style>
 
 

@@ -69,9 +69,9 @@ export default {
   },
   methods: {
     traerTransacciones() {
-      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64a5ccf686d8c5d256ed8fce'
         },
       })
         .then(response => {
@@ -79,20 +79,40 @@ export default {
           for (let i = 0; i < this.criptos.length; i++) {
             let element = this.criptos[i];
             if (element.crypto_code == 'bitcoin') {
-              this.misCryptos.BITCOIN.cantidad += parseFloat(element.crypto_amount);
-              this.misCryptos.BITCOIN.totalCrypto += parseFloat(element.money)
+              if (element.action == 'purchase') {
+                this.misCryptos.BITCOIN.cantidad += parseFloat(element.crypto_amount);
+                this.misCryptos.BITCOIN.totalCrypto += parseFloat(element.money)
+              } else {
+                this.misCryptos.BITCOIN.cantidad -= parseFloat(element.crypto_amount);
+                this.misCryptos.BITCOIN.totalCrypto -= parseFloat(element.money)
+              }
             }
             if (element.crypto_code == 'ethereum') {
-              this.misCryptos.ETHEREUM.cantidad += parseFloat(element.crypto_amount);
-              this.misCryptos.ETHEREUM.totalCrypto += parseFloat(element.money)
+              if (element.action == 'purchase') {
+                this.misCryptos.ETHEREUM.cantidad += parseFloat(element.crypto_amount);
+                this.misCryptos.ETHEREUM.totalCrypto += parseFloat(element.money)
+              } else {
+                this.misCryptos.ETHEREUM.cantidad -= parseFloat(element.crypto_amount);
+                this.misCryptos.ETHEREUM.totalCrypto -= parseFloat(element.money)
+              }
             }
             if (element.crypto_code == 'usdt') {
-              this.misCryptos.USDT.cantidad += parseFloat(element.crypto_amount);
-              this.misCryptos.USDT.totalCrypto += parseFloat(element.money)
+              if (element.action == 'purchase') {
+                this.misCryptos.USDT.cantidad += parseFloat(element.crypto_amount);
+                this.misCryptos.USDT.totalCrypto += parseFloat(element.money)
+              } else {
+                this.misCryptos.USDT.cantidad -= parseFloat(element.crypto_amount);
+                this.misCryptos.USDT.totalCrypto -= parseFloat(element.money)
+              }
             }
             if (element.crypto_code == 'dai') {
-              this.misCryptos.DAI.cantidad += parseFloat(element.crypto_amount);
-              this.misCryptos.DAI.totalCrypto += parseFloat(element.money)
+              if (element.action == 'purchase') {
+                this.misCryptos.DAI.cantidad += parseFloat(element.crypto_amount);
+                this.misCryptos.DAI.totalCrypto += parseFloat(element.money)
+              } else {
+                this.misCryptos.DAI.cantidad -= parseFloat(element.crypto_amount);
+                this.misCryptos.DAI.totalCrypto -= parseFloat(element.money)
+              }
             }
             this.totalSaldoMysCrypto += parseFloat(element.money)
             localStorage.setItem('totalSaldo', this.totalSaldoMysCrypto);

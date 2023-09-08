@@ -84,7 +84,14 @@ export default {
       cantidadV: 0,
       criptoSeleccionadaV: "",
       totalVenta: "Precio total",
+      totalBTCcomprado: 0,
+      totalETHcomprado: 0,
+      totalUSDTcomprado: 0,
+      totalDAIcomprado: 0,
     };
+  },
+  mounted(){
+    this.traerTransaccionesVenta();
   },
   methods: {
     calcularCompra() {
@@ -114,7 +121,6 @@ export default {
           return cantidad * precioCripto;
         });
     },
-    //PROBLEMA DE LA API
     realizarCompra() {
       if (this.totalCompra === "Precio total" || this.totalCompra <= 0) {
         alert("Primero ingresa una cantidad válida y selecciona una criptomoneda.");
@@ -137,9 +143,9 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio-36cf.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '60eb09146661365596af552f',
+              'x-apikey': '64a5ccf686d8c5d256ed8fce',
               'Content-Type': 'application/json',
             },
           })
@@ -188,7 +194,8 @@ export default {
       if (this.totalVenta === "Precio total" || this.totalVenta <= 0) {
         alert("Primero ingresa una cantidad válida y selecciona una criptomoneda.");
       }
-      else {
+      else if(this.cantidadV <= this.totalBTCcomprado || this.cantidadV <= this.totalETHcomprado ||
+              this.cantidadV <= this.totalUSDTcomprado || this.cantidadV <= this.totalDAIcomprado){
         const fechaHora = new Date();
         const dia = String(fechaHora.getDate()).padStart(2, '0');
         const mes = String(fechaHora.getMonth() + 1).padStart(2, '0');
@@ -207,9 +214,9 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio-36cf.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '60eb09146661365596af552f',
+              'x-apikey': '64a5ccf686d8c5d256ed8fce',
               'Content-Type': 'application/json',
             },
           })
@@ -226,7 +233,42 @@ export default {
         this.totalVenta = "Precio total";
         this.$router.push('/miscrypto');
       }
+      else{alert("NO PUEDES VENDER MAS DE LO QUE TIENES")}
     },
+    traerTransaccionesVenta() {
+      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+        headers: {
+          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+        },
+      })
+        .then(response => {
+          this.criptosCompradas = response.data;
+          for (let i = 0; i < this.criptosCompradas.length; i++) {
+            let element = this.criptosCompradas[i];
+            if (element.action == 'purchase') {
+              if(element.crypto_code == 'bitcoin'){
+                this.totalBTCcomprado += parseFloat(element.crypto_amount)
+              }
+              if(element.crypto_code == 'ethereum'){
+                this.totalETHcomprado += parseFloat(element.crypto_amount)
+              }
+              if(element.crypto_code == 'usdt'){
+                this.totalUSDTcomprado += parseFloat(element.crypto_amount)
+              }
+              if(element.crypto_code == 'dai'){
+                this.totalDAIcomprado += parseFloat(element.crypto_amount)
+              }
+            }
+          }
+          console.log("Cantidad comprado BTC: " + this.totalBTCcomprado)
+          console.log("Cantidad comprado ETH: " + this.totalETHcomprado)
+          console.log("Cantidad comprado USDT: " + this.totalUSDTcomprado)
+          console.log("Cantidad comprado DAI: " + this.totalDAIcomprado)
+        })
+        .catch(error => {
+          console.error('Error al obtener los datos:', error);
+        });
+    }
   },
   created() {
     this.usuario = JSON.parse(localStorage.getItem('user'))
@@ -237,6 +279,40 @@ export default {
   }
 };
 </script>
+<style scoped>
+/*COMPRA DE CRYPTOS*/
+.cardCompra{
+    border: 1px solid darkgray;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+
+}
+.btnComprarVender{
+    width: 90px;
+    padding: 6px;
+    background-color: #323232;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.btnComprarVender:hover{
+    background-color: black ;
+}
+#miSelect {
+    border: 2px solid #ccc;
+    padding: 5px;
+  }
+  
+#miSelect:focus {
+    border-color: black;
+  }
+
+input{
+  width: 50px;
+}
+</style>
   
 
   

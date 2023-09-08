@@ -2,7 +2,7 @@
   <div>
     <!--NAVBAR-->
     <navbarViewLogin></navbarViewLogin>
-    <br><br><br>
+    <br><br><br><br>
     <!--VALIDACION-->
     <div class="alert alert-danger d-flex align-items-center container" role="alert" v-if="correcto == false"
       id="alertWarning">
@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <br><br>
+    <br><br><br>
     <!--FOOTER-->
     <footerViewLogin></footerViewLogin>
   </div>
