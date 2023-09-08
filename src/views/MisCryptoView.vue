@@ -114,8 +114,11 @@ export default {
                 this.misCryptos.DAI.totalCrypto -= parseFloat(element.money)
               }
             }
+            if(element.action == 'purchase'){
             this.totalSaldoMysCrypto += parseFloat(element.money)
-            localStorage.setItem('totalSaldo', this.totalSaldoMysCrypto);
+            }else{
+              this.totalSaldoMysCrypto -= parseFloat(element.money)
+            }
           }
         })
         .catch(error => {
