@@ -234,7 +234,7 @@ export default {
         alert("Venta aceptada! Total: " + this.totalVenta);
         this.totalVenta = "Precio total";
         this.$router.push('/miscrypto');
-        }
+      }
       else { alert("NO PUEDES VENDER MAS DE LO QUE TIENES") }
     },
     traerTransaccionesVenta() {
