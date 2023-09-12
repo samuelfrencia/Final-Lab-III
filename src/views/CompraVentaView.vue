@@ -279,27 +279,7 @@ export default {
                 this.totalDAIcomprado -= parseFloat(element.crypto_amount)
               }
             }
-
-            //if (element.action == 'purchase') {
-            //if(element.crypto_code == 'bitcoin'){
-            //this.totalBTCcomprado += parseFloat(element.crypto_amount)
-            //}
-            //if(element.crypto_code == 'ethereum'){
-            //this.totalETHcomprado += parseFloat(element.crypto_amount)
-            //}
-            //if(element.crypto_code == 'usdt'){
-            //this.totalUSDTcomprado += parseFloat(element.crypto_amount)
-            //}
-            //if(element.crypto_code == 'dai'){
-            //this.totalDAIcomprado += parseFloat(element.crypto_amount)
-            //}
-            //}
           }
-          console.log("BTC: " + this.totalBTCcomprado)
-          console.log("ETH: " + this.totalETHcomprado)
-          console.log("USDT: " + this.totalUSDTcomprado)
-          console.log("DAI: " + this.totalDAIcomprado)
-
         })
         .catch(error => {
           console.error('Error al obtener los datos:', error);
