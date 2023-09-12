@@ -79,7 +79,7 @@ export default {
         { nombre: "ETHEREUM", api: "https://criptoya.com/api/bitso/ETH/ars/0.1" },
         { nombre: "USDT", api: "https://criptoya.com/api/bitso/usdt/ars/0.1" },
         { nombre: "DAI", api: "https://criptoya.com/api/bitso/dai/ars/0.1" },
-      ],      
+      ],
       totalCompra: "Precio total",
       cantidadV: 0,
       criptoSeleccionadaV: "",
@@ -90,7 +90,7 @@ export default {
       totalDAIcomprado: 0,
     };
   },
-  mounted(){
+  mounted() {
     this.traerTransaccionesVenta();
   },
   methods: {
@@ -194,8 +194,10 @@ export default {
       if (this.totalVenta === "Precio total" || this.totalVenta <= 0) {
         alert("Primero ingresa una cantidad válida y selecciona una criptomoneda.");
       }
-      else if(this.cantidadV <= this.totalBTCcomprado || this.cantidadV <= this.totalETHcomprado ||
-              this.cantidadV <= this.totalUSDTcomprado || this.cantidadV <= this.totalDAIcomprado){
+      else if ((this.criptoSeleccionadaV == 'BITCOIN' && this.cantidadV <= this.totalBTCcomprado) ||
+        (this.criptoSeleccionadaV == 'ETHEREUM' && this.cantidadV <= this.totalETHcomprado) ||
+        (this.criptoSeleccionadaV == 'USDT' && this.cantidadV <= this.totalUSDTcomprado) ||
+        (this.criptoSeleccionadaV == 'DAI' && this.cantidadV <= this.totalDAIcomprado)) {
         const fechaHora = new Date();
         const dia = String(fechaHora.getDate()).padStart(2, '0');
         const mes = String(fechaHora.getMonth() + 1).padStart(2, '0');
@@ -232,8 +234,8 @@ export default {
         alert("Venta aceptada! Total: " + this.totalVenta);
         this.totalVenta = "Precio total";
         this.$router.push('/miscrypto');
-      }
-      else{alert("NO PUEDES VENDER MAS DE LO QUE TIENES")}
+        }
+      else { alert("NO PUEDES VENDER MAS DE LO QUE TIENES") }
     },
     traerTransaccionesVenta() {
       axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
@@ -245,25 +247,59 @@ export default {
           this.criptosCompradas = response.data;
           for (let i = 0; i < this.criptosCompradas.length; i++) {
             let element = this.criptosCompradas[i];
-            if (element.action == 'purchase') {
-              if(element.crypto_code == 'bitcoin'){
+            if (element.crypto_code == 'bitcoin') {
+              if (element.action == 'purchase') {
                 this.totalBTCcomprado += parseFloat(element.crypto_amount)
               }
-              if(element.crypto_code == 'ethereum'){
-                this.totalETHcomprado += parseFloat(element.crypto_amount)
-              }
-              if(element.crypto_code == 'usdt'){
-                this.totalUSDTcomprado += parseFloat(element.crypto_amount)
-              }
-              if(element.crypto_code == 'dai'){
-                this.totalDAIcomprado += parseFloat(element.crypto_amount)
+              if (element.action == 'sale') {
+                this.totalBTCcomprado -= parseFloat(element.crypto_amount)
               }
             }
+            if (element.crypto_code == 'ethereum') {
+              if (element.action == 'purchase') {
+                this.totalETHcomprado += parseFloat(element.crypto_amount)
+              }
+              if (element.action == 'sale') {
+                this.totalETHcomprado -= parseFloat(element.crypto_amount)
+              }
+            }
+            if (element.crypto_code == 'usdt') {
+              if (element.action == 'purchase') {
+                this.totalUSDTcomprado += parseFloat(element.crypto_amount)
+              }
+              if (element.action == 'sale') {
+                this.totalUSDTcomprado -= parseFloat(element.crypto_amount)
+              }
+            }
+            if (element.crypto_code == 'dai') {
+              if (element.action == 'purchase') {
+                this.totalDAIcomprado += parseFloat(element.crypto_amount)
+              }
+              if (element.action == 'sale') {
+                this.totalDAIcomprado -= parseFloat(element.crypto_amount)
+              }
+            }
+
+            //if (element.action == 'purchase') {
+            //if(element.crypto_code == 'bitcoin'){
+            //this.totalBTCcomprado += parseFloat(element.crypto_amount)
+            //}
+            //if(element.crypto_code == 'ethereum'){
+            //this.totalETHcomprado += parseFloat(element.crypto_amount)
+            //}
+            //if(element.crypto_code == 'usdt'){
+            //this.totalUSDTcomprado += parseFloat(element.crypto_amount)
+            //}
+            //if(element.crypto_code == 'dai'){
+            //this.totalDAIcomprado += parseFloat(element.crypto_amount)
+            //}
+            //}
           }
-          console.log("Cantidad comprado BTC: " + this.totalBTCcomprado)
-          console.log("Cantidad comprado ETH: " + this.totalETHcomprado)
-          console.log("Cantidad comprado USDT: " + this.totalUSDTcomprado)
-          console.log("Cantidad comprado DAI: " + this.totalDAIcomprado)
+          console.log("BTC: " + this.totalBTCcomprado)
+          console.log("ETH: " + this.totalETHcomprado)
+          console.log("USDT: " + this.totalUSDTcomprado)
+          console.log("DAI: " + this.totalDAIcomprado)
+
         })
         .catch(error => {
           console.error('Error al obtener los datos:', error);
@@ -281,35 +317,38 @@ export default {
 </script>
 <style scoped>
 /*COMPRA DE CRYPTOS*/
-.cardCompra{
-    border: 1px solid darkgray;
-    border-radius: 15px;
-    padding: 25px;
-    text-align: center;
+.cardCompra {
+  border: 1px solid darkgray;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
 
 }
-.btnComprarVender{
-    width: 90px;
-    padding: 6px;
-    background-color: #323232;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
+
+.btnComprarVender {
+  width: 90px;
+  padding: 6px;
+  background-color: #323232;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
-.btnComprarVender:hover{
-    background-color: black ;
+
+.btnComprarVender:hover {
+  background-color: black;
 }
+
 #miSelect {
-    border: 2px solid #ccc;
-    padding: 5px;
-  }
-  
-#miSelect:focus {
-    border-color: black;
-  }
+  border: 2px solid #ccc;
+  padding: 5px;
+}
 
-input{
+#miSelect:focus {
+  border-color: black;
+}
+
+input {
   width: 50px;
 }
 </style>

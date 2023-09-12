@@ -12,6 +12,7 @@
               <tr>
                 <th>Crypto</th>
                 <th>Cantidad</th>
+                <th>Ganancias</th>
                 <th>Total ($)</th>
               </tr>
             </thead>
@@ -19,9 +20,11 @@
               <tr v-for="crypto in misCryptos" :key="crypto.id" class="table-active">
                 <td>{{ crypto.nombre }}</td>
                 <td>{{ crypto.cantidad }}</td>
+                <td>.........</td>
                 <td>${{ (crypto.totalCrypto).toFixed(2) }}</td>
               </tr>
               <tr>
+                <td class="table-borderless table-light" style="border: none;"></td>
                 <td class="table-borderless table-light" style="border: none;"></td>
                 <td class="table-borderless table-light" style="border: none;"></td>
                 <td class="table-info" colspan="1">SALDO: ${{ parseFloat(totalSaldoMysCrypto).toFixed(2) }}</td>
@@ -58,6 +61,12 @@ export default {
         USDT: { id: 2, nombre: 'USDT', cantidad: 0, totalCrypto: 0 },
         DAI: { id: 3, nombre: 'DAI', cantidad: 0, totalCrypto: 0 }
       },
+      criptoAnalisis: [
+        { nombre: "BITCOIN", api: "https://criptoya.com/api/satoshitango/btc/ars" },
+        { nombre: "ETHEREUM", api: "https://criptoya.com/api/satoshitango/ETH/ars" },
+        { nombre: "USDT", api: "https://criptoya.com/api/satoshitango/usdt/ars" },
+        { nombre: "DAI", api: "https://criptoya.com/api/satoshitango/dai/ars" },
+      ],  
       totalSaldoMysCrypto: 0,
     };
   },
