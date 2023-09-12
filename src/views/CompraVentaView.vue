@@ -3,59 +3,52 @@
     <!--NAVBAR-->
     <NavbarView></NavbarView>
 
-    <div class="muestraDatos">
-      <div class="row">
-        <div class="col-3"></div>
-        <!--COMPRA-->
-        <div class="col-2 cardCompra">
-          <h3 style="text-align: center;">Comprar</h3>
-          <hr>
+    <br><br>
+    <div class="cardss">
+      <!--COMPRA-->
+      <div class="cardCompra">
+        <h3 style="text-align: center;">Comprar</h3>
+        <hr>
+        <div>
           <div>
-            <div>
-              <input class="input-group-text" type="number" v-model="cantidad" @input="calcularCompra()"
-                style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-              <br>
-              <select class="form-select" id="miSelect" v-model="criptoSeleccionada" @change="calcularCompra()"
-                style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-                <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}
-                </option>
-              </select>
-            </div>
-            <div style="margin-top: 20px;">
-              <input class="input-group-text" type="text" v-model="totalCompra" style="width: 100%; color: darkgray"
-                disabled> <br>
-              <button class="btnComprarVender" style="width: auto;" @click="realizarCompra()">Comprar</button>
-            </div>
+            <input class="input-group-text inputs" type="number" v-model="cantidad" @input="calcularCompra()">
+            <br>
+            <select class="form-select inputs" id="miSelect" v-model="criptoSeleccionada" @change="calcularCompra()">
+              <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}
+              </option>
+            </select>
+          </div>
+          <div style="margin-top: 20px;">
+            <input class="input-group-text inputs" type="text" v-model="totalCompra" style="color: darkgray" disabled> 
+            <br>
+            <button class="btnComprarVender" style="width: 75px;" @click="realizarCompra()">Comprar</button>
           </div>
         </div>
+      </div>
 
-        <div class="col-2"></div>
 
-        <!--VENTA-->
-        <div class="col-2 cardCompra">
-          <h3 style="text-align: center;">Vender</h3>
-          <hr>
+      <!--VENTA-->
+      <div class="cardVenta">
+        <h3 style="text-align: center;">Vender</h3>
+        <hr>
+        <div>
           <div>
-            <div>
-              <input class="input-group-text" type="number" v-model="cantidadV" @input="calcularVenta()"
-                style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-              <br>
-              <select class="form-select" id="miSelect" v-model="criptoSeleccionadaV" @change="calcularVenta()"
-                style="width: 100%; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
-                <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}
-                </option>
-              </select>
-            </div>
-            <div style="margin-top: 20px;">
-              <input class="input-group-text" type="text" v-model="totalVenta"
-                style="width: 100%; color: darkgray; margin-top: 10px;" disabled>
-              <br>
-              <button class="btnComprarVender" style="width: auto;" @click="realizarVenta()">Vender</button>
-            </div>
+            <input class="input-group-text inputs" type="number" v-model="cantidadV" @input="calcularVenta()">
+            <br>
+            <select class="form-select inputs" id="miSelect" v-model="criptoSeleccionadaV" @change="calcularVenta()">
+              <option v-for="(cripto, index) in criptos" :key="index" :value="cripto.nombre">{{ cripto.nombre }}
+              </option>
+            </select>
+          </div>
+          <div style="margin-top: 20px;">
+            <input class="input-group-text inputs" type="text" v-model="totalVenta" style="color: darkgray;" disabled>
+            <br>
+            <button class="btnComprarVender" style="width: 75px;" @click="realizarVenta()">Vender</button>
           </div>
         </div>
       </div>
     </div>
+    <br><br>
 
     <!--FOOTER-->
     <FooterView></FooterView>
@@ -297,12 +290,33 @@ export default {
 </script>
 <style scoped>
 /*COMPRA DE CRYPTOS*/
+.inputs{
+  width: 170px; 
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+.cardss {
+  display: flex;
+  justify-content: center;
+}
+
 .cardCompra {
   border: 1px solid darkgray;
   border-radius: 15px;
   padding: 25px;
   text-align: center;
+  width: 220px;
+  margin: 20px;
+  background-color: #f1efee;
+}
 
+.cardVenta {
+  border: 1px solid darkgray;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  width: 220px;
+  margin: 20px;
+  background-color: #f1efee;
 }
 
 .btnComprarVender {
@@ -331,6 +345,30 @@ export default {
 input {
   width: 50px;
 }
+@media screen and (max-width: 500px) {
+  .cardss {
+  display: flex;
+  justify-content: center; /* Centrar las tarjetas horizontalmente */
+  align-items: center; /* Centrar las tarjetas verticalmente */
+  flex-direction: column; /* Apilar las tarjetas en dispositivos móviles */
+  max-width: 800px; /* Tamaño máximo de las tarjetas */
+  margin: 0 auto;
+}
+
+.cardCompra,
+.cardVenta {
+  width: 220px; /* Tamaño fijo para las tarjetas */
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+}
+
+
+
+
+
 </style>
   
 
