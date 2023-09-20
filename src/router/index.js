@@ -4,6 +4,7 @@ import InicioView from '../views/InicioView.vue'
 import CompraVentaView from '../views/CompraVentaView.vue'
 import MisCryptoView from '../views/MisCryptoView.vue'
 import MovimientosView from '../views/MovimientosView.vue'
+import InversionesView from '../views/InversionesView.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/movimientos',
     name: 'movimientos',
     component: MovimientosView
+  },
+  {
+    path: '/inversiones',
+    name: 'inversiones',
+    component: InversionesView
   },
 ]
 

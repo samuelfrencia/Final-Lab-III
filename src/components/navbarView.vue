@@ -21,6 +21,9 @@
           <li class="nav-item">
             <router-link to="/movimientos" class="nav-link">Movimientos</router-link>
           </li>
+          <li class="nav-item">
+            <router-link to="/inversiones" class="nav-link">Inversiones</router-link>
+          </li>
         </ul>
        
         <button type="button" class="btn btn-info" style="margin-right: 10px;"><img style="margin-right: 5px;" src="../assets/person.svg">{{ usuario }}</button>

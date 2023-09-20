@@ -8,6 +8,7 @@
            <p><router-link class="cambio" to="/compraventa">Compraventa</router-link></p>
            <p><router-link class="cambio" to="/miscrypto">Mis Cryptos</router-link></p>
            <p><router-link class="cambio" to="/movimientos">Movimientos</router-link></p>
+           <p><router-link class="cambio" to="/inversiones">Inversiones</router-link></p>
         </div>
         <div class="col-md-4 text-center">
           <h3>Contacto</h3>
