@@ -19,7 +19,7 @@
             </select>
           </div>
           <div style="margin-top: 20px;">
-            <input class="input-group-text inputs" type="text" v-model="totalCompra" style="color: darkgray" disabled> 
+            <input class="input-group-text inputs" type="text" v-model="totalCompra" style="color: darkgray" disabled>
             <br>
             <button class="btnComprarVender" style="width: 75px;" @click="realizarCompra()">Comprar</button>
           </div>
@@ -59,8 +59,7 @@
 import NavbarView from '@/components/navbarView.vue';
 import FooterView from '@/components/footerView.vue';
 import axios from 'axios';
-
-
+import Swal from 'sweetalert2'
 
 export default {
   data() {
@@ -103,7 +102,7 @@ export default {
         })
         .catch((error) => {
           this.totalCompra = "Precio total";
-          alert("Ha ocurrido un error al obtener los datos de la API.");
+          Swal.fire('Ha ocurrido un error al obtener los datos de la API.')
           console.error(error);
         });
     },
@@ -116,7 +115,7 @@ export default {
     },
     realizarCompra() {
       if (this.totalCompra === "Precio total" || this.totalCompra <= 0) {
-        alert("Primero ingresa una cantidad válida y selecciona una criptomoneda.");
+        Swal.fire('Primero ingresa una cantidad válida y selecciona una criptomoneda.')
       }
       else {
         const fechaHora = new Date();
@@ -151,7 +150,11 @@ export default {
           });
         this.criptoSeleccionada = "";
         this.cantidad = "";
-        alert("¡Compra aceptada! Total: $" + this.totalCompra);
+        Swal.fire(
+          '¡Compra aceptada!',
+          'Total: $' + this.totalCompra,
+          'success'
+        )
         this.totalCompra = "Precio total";
         this.$router.push('/miscrypto');
       }
@@ -172,7 +175,7 @@ export default {
         })
         .catch((error) => {
           this.totalVenta = "Precio total";
-          alert("Ha ocurrido un error al obtener los datos de la API.");
+          Swal.fire('Ha ocurrido un error al obtener los datos de la API.')
           console.error(error);
         });
     },
@@ -185,7 +188,7 @@ export default {
     },
     realizarVenta() {
       if (this.totalVenta === "Precio total" || this.totalVenta <= 0) {
-        alert("Primero ingresa una cantidad válida y selecciona una criptomoneda.");
+        Swal.fire('Primero ingresa una cantidad válida y selecciona una criptomoneda.')
       }
       else if ((this.criptoSeleccionadaV == 'BITCOIN' && this.cantidadV <= this.totalBTCcomprado) ||
         (this.criptoSeleccionadaV == 'ETHEREUM' && this.cantidadV <= this.totalETHcomprado) ||
@@ -224,11 +227,15 @@ export default {
           });
         this.criptoSeleccionadaV = "";
         this.cantidadV = "";
-        alert("Venta aceptada! Total: " + this.totalVenta);
+        Swal.fire(
+          '¡Venta aceptada!',
+          'Total: $' + this.totalVenta,
+          'success'
+        )
         this.totalVenta = "Precio total";
         this.$router.push('/miscrypto');
       }
-      else { alert("NO PUEDES VENDER MAS DE LO QUE TIENES") }
+      else { Swal.fire('NO PUEDES VENDER MAS DE LO QUE TIENES') }
     },
     traerTransaccionesVenta() {
       axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
@@ -290,10 +297,11 @@ export default {
 </script>
 <style scoped>
 /*COMPRA DE CRYPTOS*/
-.inputs{
-  width: 170px; 
+.inputs {
+  width: 170px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 }
+
 .cardss {
   display: flex;
   justify-content: center;
@@ -345,30 +353,31 @@ export default {
 input {
   width: 50px;
 }
+
 @media screen and (max-width: 500px) {
   .cardss {
-  display: flex;
-  justify-content: center; /* Centrar las tarjetas horizontalmente */
-  align-items: center; /* Centrar las tarjetas verticalmente */
-  flex-direction: column; /* Apilar las tarjetas en dispositivos móviles */
-  max-width: 800px; /* Tamaño máximo de las tarjetas */
-  margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    /* Centrar las tarjetas horizontalmente */
+    align-items: center;
+    /* Centrar las tarjetas verticalmente */
+    flex-direction: column;
+    /* Apilar las tarjetas en dispositivos móviles */
+    max-width: 800px;
+    /* Tamaño máximo de las tarjetas */
+    margin: 0 auto;
+  }
+
+  .cardCompra,
+  .cardVenta {
+    width: 220px;
+    /* Tamaño fijo para las tarjetas */
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
 }
-
-.cardCompra,
-.cardVenta {
-  width: 220px; /* Tamaño fijo para las tarjetas */
-  padding: 20px;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-}
-
-
-
-
-
 </style>
   
 
