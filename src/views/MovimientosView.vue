@@ -16,8 +16,7 @@
                 <th>Cantidad</th>
                 <th>Fecha</th>
                 <th>Precio compra</th>
-                <th>Ganancias</th>
-                <th>Buttons</th>
+                <th>Botones</th>
               </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -27,9 +26,7 @@
                 <td>{{ transaccion.crypto_amount }}</td>
                 <td>{{ transaccion.datetimeFormatted }}</td>
                 <td>${{ transaccion.money }}</td>
-                <td>${{ transaccion.ganancia }}</td>
                 <td>
-
                   <!-- Button/Modal VER -->
                   <button class="btn btn-info" id="btnInfo" data-bs-toggle="modal" data-bs-target="#ModalVer"
                     @click="verTransaccion(transaccion)">
@@ -179,9 +176,9 @@ export default {
   },
   methods: {
     traerTransacciones() {
-      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
@@ -209,9 +206,9 @@ export default {
         });
     },
     eliminarTransaccion(transaccion) {
-      axios.delete(`https://laboratorio-36cf.restdb.io/rest/transactions/${transaccion._id}`, {
+      axios.delete(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
@@ -226,9 +223,9 @@ export default {
     verTransaccion(transaccion) {
       this.verCrypto = {};
 
-      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions/${transaccion._id}`, {
+      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
@@ -257,9 +254,9 @@ export default {
         money: this.verCrypto.money
       }
 
-      axios.patch(`https://laboratorio-36cf.restdb.io/rest/transactions/${transaccion._id}`, transaccionModificada, {
+      axios.patch(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, transaccionModificada, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {

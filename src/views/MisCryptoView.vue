@@ -68,9 +68,9 @@ export default {
   },
   methods: {
     traerTransacciones() {
-      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
@@ -108,25 +108,25 @@ export default {
             }
           }
           if (this.misCryptos.BITCOIN.cantidad > 0) {
-            this.misCryptos.BITCOIN.totalCrypto = parseFloat(this.precioActualBTC.totalAsk * this.misCryptos.BITCOIN.cantidad);
+            this.misCryptos.BITCOIN.totalCrypto = parseFloat(this.precioActualBTC.totalBid * this.misCryptos.BITCOIN.cantidad);
           }
           else{
             this.misCryptos.BITCOIN.cantidad = 0
           }
           if (this.misCryptos.ETHEREUM.cantidad > 0) {
-            this.misCryptos.ETHEREUM.totalCrypto = parseFloat(this.precioActualETH.totalAsk * this.misCryptos.ETHEREUM.cantidad);
+            this.misCryptos.ETHEREUM.totalCrypto = parseFloat(this.precioActualETH.totalBid * this.misCryptos.ETHEREUM.cantidad);
           }
           else{
             this.misCryptos.ETHEREUM.cantidad = 0
           }
           if (this.misCryptos.USDT.cantidad > 0) {
-            this.misCryptos.USDT.totalCrypto = parseFloat(this.precioActualUSDT.totalAsk * this.misCryptos.USDT.cantidad);
+            this.misCryptos.USDT.totalCrypto = parseFloat(this.precioActualUSDT.totalBid * this.misCryptos.USDT.cantidad);
           }
           else{
             this.misCryptos.USDT.cantidad = 0
           }
           if (this.misCryptos.DAI.cantidad > 0) {
-            this.misCryptos.DAI.totalCrypto = parseFloat(this.precioActualDAI.totalAsk * this.misCryptos.DAI.cantidad);
+            this.misCryptos.DAI.totalCrypto = parseFloat(this.precioActualDAI.totalBid * this.misCryptos.DAI.cantidad);
           }
           else{
             this.misCryptos.DAI.cantidad = 0

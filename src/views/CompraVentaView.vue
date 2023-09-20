@@ -136,9 +136,9 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio-36cf.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '64a5ccf686d8c5d256ed8fce',
+              'x-apikey': '60eb09146661365596af552f',
               'Content-Type': 'application/json',
             },
           })
@@ -209,9 +209,9 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio-36cf.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '64a5ccf686d8c5d256ed8fce',
+              'x-apikey': '60eb09146661365596af552f',
               'Content-Type': 'application/json',
             },
           })
@@ -231,9 +231,9 @@ export default {
       else { alert("NO PUEDES VENDER MAS DE LO QUE TIENES") }
     },
     traerTransaccionesVenta() {
-      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
