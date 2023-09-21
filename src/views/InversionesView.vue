@@ -5,7 +5,7 @@
     <!--MIS CRYPTOS-->
     <div class="muestraDatos ">
       <div class="container">
-        <h2 style="text-align: center;">Analisis de inversion</h2>
+        <h2 style="text-align: center;">Analisis de inversiones</h2>
         <div class="table-responsive">
           <table class="table table-dark text-center">
             <thead>
@@ -35,7 +35,7 @@
 import axios from 'axios';
 import NavbarView from '@/components/navbarView.vue';
 import FooterView from '@/components/footerView.vue';
-
+import Swal from 'sweetalert2';
 export default {
   data() {
     return {
@@ -134,6 +134,7 @@ export default {
           }
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
       axios.get(`https://criptoya.com/api/bitso/btc/ars/0.1`)
@@ -141,6 +142,7 @@ export default {
           this.precioActualBTC = response.data
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -149,6 +151,7 @@ export default {
           this.precioActualETH = response.data
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -157,6 +160,7 @@ export default {
           this.precioActualUSDT = response.data
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -165,6 +169,7 @@ export default {
           this.precioActualDAI = response.data
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
 

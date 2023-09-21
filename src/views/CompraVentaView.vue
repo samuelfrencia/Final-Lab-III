@@ -146,6 +146,7 @@ export default {
             this.idTransaccion = response.data._id
           })
           .catch(error => {
+            Swal.fire('Error al SUBIR LA COMPRA a la API: '+ error)
             console.error(error);
           });
         this.criptoSeleccionada = "";
@@ -223,6 +224,7 @@ export default {
             this.idTransaccion = response.data._id
           })
           .catch(error => {
+            Swal.fire('Error al SUBIR UNA VENTA a la API: '+ error)
             console.error(error);
           });
         this.criptoSeleccionadaV = "";
@@ -282,6 +284,7 @@ export default {
           }
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
     }
@@ -301,13 +304,10 @@ export default {
   width: 170px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 }
-
 .cardss {
   display: flex;
   justify-content: center;
-}
-
-.cardCompra {
+}.cardCompra {
   border: 1px solid darkgray;
   border-radius: 15px;
   padding: 25px;
@@ -316,7 +316,6 @@ export default {
   margin: 20px;
   background-color: #f1efee;
 }
-
 .cardVenta {
   border: 1px solid darkgray;
   border-radius: 15px;
@@ -326,7 +325,6 @@ export default {
   margin: 20px;
   background-color: #f1efee;
 }
-
 .btnComprarVender {
   width: 90px;
   padding: 6px;
@@ -336,42 +334,32 @@ export default {
   border-radius: 10px;
   cursor: pointer;
 }
-
 .btnComprarVender:hover {
   background-color: black;
 }
-
 #miSelect {
   border: 2px solid #ccc;
   padding: 5px;
 }
-
 #miSelect:focus {
   border-color: black;
 }
-
 input {
   width: 50px;
 }
-
 @media screen and (max-width: 500px) {
   .cardss {
     display: flex;
     justify-content: center;
-    /* Centrar las tarjetas horizontalmente */
     align-items: center;
-    /* Centrar las tarjetas verticalmente */
     flex-direction: column;
-    /* Apilar las tarjetas en dispositivos móviles */
     max-width: 800px;
-    /* Tamaño máximo de las tarjetas */
     margin: 0 auto;
   }
 
   .cardCompra,
   .cardVenta {
     width: 220px;
-    /* Tamaño fijo para las tarjetas */
     padding: 20px;
     border: 1px solid #ccc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

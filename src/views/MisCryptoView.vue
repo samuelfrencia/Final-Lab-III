@@ -46,6 +46,7 @@
 import axios from 'axios';
 import NavbarView from '@/components/navbarView.vue';
 import FooterView from '@/components/footerView.vue';
+import Swal from 'sweetalert2'
 
 export default {
   data() {
@@ -144,6 +145,7 @@ export default {
             + this.misCryptos.USDT.totalCrypto + this.misCryptos.DAI.totalCrypto;
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
       axios.get(`https://criptoya.com/api/bitso/btc/ars/0.1`)
@@ -151,6 +153,7 @@ export default {
           this.precioActualBTC = response.data
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -159,6 +162,7 @@ export default {
           this.precioActualETH = response.data
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -167,6 +171,7 @@ export default {
           this.precioActualUSDT = response.data
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -175,9 +180,9 @@ export default {
           this.precioActualDAI = response.data
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
-
     },
   },
   components: {

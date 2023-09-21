@@ -149,6 +149,7 @@
 import axios from 'axios';
 import NavbarView from '@/components/navbarView.vue';
 import FooterView from '@/components/footerView.vue';
+import Swal from 'sweetalert2'
 
 export default {
   data() {
@@ -209,6 +210,7 @@ export default {
           });
         })
         .catch(error => {
+          Swal.fire('Error al obtener los datos de la API: '+ error)
           console.error('Error al obtener los datos:', error);
         });
     },
@@ -224,6 +226,7 @@ export default {
           this.traerTransacciones();
         })
         .catch(error => {
+          Swal.fire('Error al ELIMINAR dato de la API: '+ error)
           console.error('Error al ELIMINAR dato:', error);
         });
     },
@@ -249,6 +252,7 @@ export default {
           console.log('VER transaccion de la API:', this.verCrypto);
         })
         .catch(error => {
+          Swal.fire('Error al obtener el dato de la API: '+ error)
           console.error('Error al obtener dato:', error);
         });
     },
@@ -272,34 +276,8 @@ export default {
           this.traerTransacciones();
         })
         .catch(error => {
-          console.error('Error al ELIMINAR dato:', error);
-        });
-    },
-    calcularModif() {
-      if (!this.cantidadModif || this.cantidadModif <= 0) {
-        this.totalCompra = "Precio total";
-        return;
-      }
-      const criptoSeleccionadaModif = this.criptosModif.find(c => c.nombre === this.criptoSeleccionadaModif);
-      if (!criptoSeleccionadaModif) {
-        this.totalCompra = "Precio total";
-        return;
-      }
-      this.obtenerPrecioCripto(criptoSeleccionadaModif.api, this.cantidadModif)
-        .then((totalCompra) => {
-          this.totalCompra = totalCompra.toFixed(2);
-        })
-        .catch((error) => {
-          this.totalCompra = "Precio total";
-          alert("Ha ocurrido un error al obtener los datos de la API.");
-          console.error(error);
-        });
-    },
-    obtenerPrecioCriptoModif(api, cantidadModif) {
-      return axios.get(api)
-        .then((response) => {
-          const precioCripto = response.data.totalAsk;
-          return cantidadModif * precioCripto;
+          Swal.fire('Error al MODIFICAR los datos de la API: '+ error)
+          console.error('Error al MODIFICAR dato:', error);
         });
     },
   },
