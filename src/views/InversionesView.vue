@@ -17,7 +17,7 @@
             <tbody>
               <tr v-for="crypto in misCryptos" :key="crypto.id" class="table-active">
                 <td>{{ crypto.nombre }}</td>
-                <td>${{ (crypto.ganancia).toFixed(2) }}</td>
+                <td>${{ formatearNumero(crypto.ganancia) }}</td>
               </tr>
             </tbody>
           </table>
@@ -55,6 +55,15 @@ export default {
     this.traerTransacciones();
   },
   methods: {
+    formatearNumero(numero) {
+      const opciones = {
+        style: 'decimal',
+        useGrouping: true,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      };
+      return numero.toLocaleString('es-ES', opciones); 
+    },
     traerTransacciones() {
       axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {

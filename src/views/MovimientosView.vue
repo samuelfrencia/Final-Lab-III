@@ -23,9 +23,9 @@
               <tr v-for="transaccion in criptos" :key="transaccion._id">
                 <td>{{ transaccion.action }}</td>
                 <td>{{ transaccion.crypto_code.toUpperCase() }}</td>
-                <td>{{ transaccion.crypto_amount }}</td>
+                <td>{{ formatearNumero(transaccion.crypto_amount) }}</td>
                 <td>{{ transaccion.datetimeFormatted }}</td>
-                <td>${{ transaccion.money }}</td>
+                <td>${{ formatearNumero(transaccion.money) }}</td>
                 <td>
                   <!-- Button/Modal VER -->
                   <button class="btn btn-info" id="btnInfo" data-bs-toggle="modal" data-bs-target="#ModalVer"
@@ -175,15 +175,22 @@ export default {
     this.traerTransacciones();
   },
   methods: {
+    formatearNumero(numero) {
+      const opciones = {
+        style: 'decimal',
+        useGrouping: true,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      };
+      return numero.toLocaleString('es-ES', opciones); 
+    },
     traerTransacciones() {
       axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
           'x-apikey': '60eb09146661365596af552f'
         },
       })
-        .then(response => {
-          console.log('Respuesta de la API:', response.data);
-
+        .then(response => {          
           this.criptos = response.data.map(transaccion => {
             const fechaUTC = new Date(transaccion.datetime);
             const offset = 3; // Diferencia horaria en horas para Buenos Aires

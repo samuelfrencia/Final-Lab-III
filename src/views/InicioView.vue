@@ -2,7 +2,7 @@
   <div>
     <!--NAVBAR-->
     <NavbarView></NavbarView>
-    
+
     <!--INICIO SECION-->
     <div class="container">
       <div class="muestraDatos">
@@ -13,7 +13,8 @@
               <img :src="isBalanceVisible ? require('../assets/eye-fill.svg') : require('../assets/eye-slash-fill.svg')"
                 @click="toggleBalanceVisibility" style="width: 25px; cursor: pointer;">
             </h3>
-            <h4 v-if="mostrar"><b>{{ isBalanceVisible ? '$' + parseFloat(totalSaldoMysCrypto).toFixed(2) : '****' }}</b></h4>
+            <h4 v-if="mostrar"><b>{{ isBalanceVisible ? '$' + formatearNumero(totalSaldoMysCrypto) : '****' }}</b>
+            </h4>
             <h4 v-else>...</h4>
           </div>
           <div class="cardDatosCryptos col-md-7 container">
@@ -24,15 +25,15 @@
                   <th scope="col">Moneda</th>
                   <th scope="col">Precio compra</th>
                   <th scope="col">Precio compra final</th>
-                  <th scope="col">Precio venta</th>
+                  <th scope="col">Precio venta final</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="moneda in monedas" :key="moneda.id">
                   <td>{{ moneda.nombre }}</td>
-                  <td>{{ moneda.precioCompra }}</td>
-                  <td>{{ moneda.precioCompraFinal }}</td>
-                  <td>{{ moneda.precioVenta }}</td>
+                  <td>{{ formatearNumero(moneda.precioCompra) }}</td>
+                  <td>{{ formatearNumero(moneda.precioCompraFinal) }}</td>
+                  <td>{{ formatearNumero(moneda.precioVenta) }}</td>
                 </tr>
               </tbody>
             </table>
@@ -52,6 +53,12 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      misCryptos: {
+        BITCOIN: { id: 0, nombre: 'BITCOIN', cantidad: 0, totalCrypto: 0 },
+        ETHEREUM: { id: 1, nombre: 'ETHEREUM', cantidad: 0, totalCrypto: 0 },
+        USDT: { id: 2, nombre: 'USDT', cantidad: 0, totalCrypto: 0 },
+        DAI: { id: 3, nombre: 'DAI', cantidad: 0, totalCrypto: 0 }
+      },
       totalSaldoMysCrypto: 0,
       isBalanceVisible: true,
       monedas: [],
@@ -60,7 +67,7 @@ export default {
   },
   mounted() {
     this.usuario = JSON.parse(localStorage.getItem('user'))
-    this.traerTransaccion();
+    this.traerTransacciones();
     const cryptoLista = [
       { id: 1, nombre: 'BITCOIN', mercadoCryptosAPI: 'https://criptoya.com/api/bitso/btc/ars/0.1' },
       { id: 2, nombre: 'ETHEREUM', mercadoCryptosAPI: 'https://criptoya.com/api/bitso/ETH/ars/0.1' },
@@ -104,24 +111,119 @@ export default {
     toggleBalanceVisibility() {
       this.isBalanceVisible = !this.isBalanceVisible;
     },
-    traerTransaccion() {
-      axios.get(`https://laboratorio-36cf.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+    formatearNumero(numero) {
+      const opciones = {
+        style: 'decimal',
+        useGrouping: true,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      };
+      return numero.toLocaleString('es-ES', opciones); 
+    },
+    traerTransacciones() {
+      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '64a5ccf686d8c5d256ed8fce'
+          'x-apikey': '60eb09146661365596af552f'
         },
       })
         .then(response => {
           this.criptos = response.data;
           for (let i = 0; i < this.criptos.length; i++) {
             let element = this.criptos[i];
-            this.totalSaldoMysCrypto += parseFloat(element.money)
-            this.mostrar = true;
+
+            if (element.crypto_code == 'bitcoin') {
+              if (element.action == 'purchase') {
+                this.misCryptos.BITCOIN.cantidad += parseFloat(element.crypto_amount);
+              } else {
+                this.misCryptos.BITCOIN.cantidad -= parseFloat(element.crypto_amount);
+              }
+            }
+            if (element.crypto_code == 'ethereum') {
+              if (element.action == 'purchase') {
+                this.misCryptos.ETHEREUM.cantidad += parseFloat(element.crypto_amount);
+              } else {
+                this.misCryptos.ETHEREUM.cantidad -= parseFloat(element.crypto_amount);
+              }
+            }
+            if (element.crypto_code == 'usdt') {
+              if (element.action == 'purchase') {
+                this.misCryptos.USDT.cantidad += parseFloat(element.crypto_amount);
+              } else {
+                this.misCryptos.USDT.cantidad -= parseFloat(element.crypto_amount);
+              }
+            }
+            if (element.crypto_code == 'dai') {
+              if (element.action == 'purchase') {
+                this.misCryptos.DAI.cantidad += parseFloat(element.crypto_amount);
+              } else {
+                this.misCryptos.DAI.cantidad -= parseFloat(element.crypto_amount);
+              }
+            }
           }
+          if (this.misCryptos.BITCOIN.cantidad > 0) {
+            this.misCryptos.BITCOIN.totalCrypto = parseFloat(this.precioActualBTC.totalBid * this.misCryptos.BITCOIN.cantidad);
+          }
+          else {
+            this.misCryptos.BITCOIN.cantidad = 0
+          }
+          if (this.misCryptos.ETHEREUM.cantidad > 0) {
+            this.misCryptos.ETHEREUM.totalCrypto = parseFloat(this.precioActualETH.totalBid * this.misCryptos.ETHEREUM.cantidad);
+          }
+          else {
+            this.misCryptos.ETHEREUM.cantidad = 0
+          }
+          if (this.misCryptos.USDT.cantidad > 0) {
+            this.misCryptos.USDT.totalCrypto = parseFloat(this.precioActualUSDT.totalBid * this.misCryptos.USDT.cantidad);
+          }
+          else {
+            this.misCryptos.USDT.cantidad = 0
+          }
+          if (this.misCryptos.DAI.cantidad > 0) {
+            this.misCryptos.DAI.totalCrypto = parseFloat(this.precioActualDAI.totalBid * this.misCryptos.DAI.cantidad);
+          }
+          else {
+            this.misCryptos.DAI.cantidad = 0
+          }
+          this.totalSaldoMysCrypto = this.misCryptos.BITCOIN.totalCrypto + this.misCryptos.ETHEREUM.totalCrypto
+            + this.misCryptos.USDT.totalCrypto + this.misCryptos.DAI.totalCrypto;
+            this.mostrar = true;
         })
         .catch(error => {
           console.error('Error al obtener los datos:', error);
         });
-    }
+      axios.get(`https://criptoya.com/api/bitso/btc/ars/0.1`)
+        .then(response => {
+          this.precioActualBTC = response.data
+        })
+        .catch(error => {
+          console.error('Error al obtener los datos:', error);
+        });
+
+      axios.get(`https://criptoya.com/api/bitso/ETH/ars/0.1`)
+        .then(response => {
+          this.precioActualETH = response.data
+        })
+        .catch(error => {
+          console.error('Error al obtener los datos:', error);
+        });
+
+      axios.get(`https://criptoya.com/api/bitso/usdt/ars/0.1`)
+        .then(response => {
+          this.precioActualUSDT = response.data
+        })
+        .catch(error => {
+          console.error('Error al obtener los datos:', error);
+        });
+
+      axios.get(`https://criptoya.com/api/bitso/dai/ars/0.1`)
+        .then(response => {
+          this.precioActualDAI = response.data
+        })
+        .catch(error => {
+          console.error('Error al obtener los datos:', error);
+        });
+
+    },
   },
   components: {
     NavbarView,
