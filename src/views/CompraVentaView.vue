@@ -25,8 +25,7 @@
           </div>
         </div>
       </div>
-
-
+      
       <!--VENTA-->
       <div class="cardVenta">
         <h3 style="text-align: center;">Vender</h3>
