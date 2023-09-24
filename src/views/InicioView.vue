@@ -13,11 +13,10 @@
               <img :src="isBalanceVisible ? require('../assets/eye-fill.svg') : require('../assets/eye-slash-fill.svg')"
                 @click="toggleBalanceVisibility" style="width: 25px; cursor: pointer;">
             </h3>
-            <h4 v-if="mostrar"><b>{{ isBalanceVisible ? '$' + formatearNumero(totalSaldoMysCrypto) : '****' }}</b>
-            </h4>
+            <h4 v-if="mostrar"><b>{{ isBalanceVisible ? '$' + formatearNumero(totalSaldoMysCrypto) : '****' }}</b></h4>
             <h4 v-else>...</h4>
           </div>
-          <div class="cardDatosCryptos col-md-7 container">
+          <div class="cardDatosCryptos col-md-7 container" >
             <h2 style="text-align: center;color: red;">Mercado crypto (Bitso)</h2>
             <table class="table">
               <thead>

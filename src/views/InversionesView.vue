@@ -6,7 +6,7 @@
     <div class="muestraDatos ">
       <div class="container">
         <h2 style="text-align: center;">Analisis de inversiones</h2>
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="correcto">
           <table class="table table-dark text-center">
             <thead>
               <tr>
@@ -21,6 +21,20 @@
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="spinner center" v-else>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
         </div>
         <div class="col-md-1"></div>
       </div>
@@ -46,6 +60,7 @@ export default {
         USDT: { id: 2, nombre: 'USDT', cantidad: 0, totalCrypto: 0, ganancia: 0 },
         DAI: { id: 3, nombre: 'DAI', cantidad: 0, totalCrypto: 0, ganancia: 0 }
       },
+      correcto: false,
     };
   },
   created() {
@@ -62,7 +77,7 @@ export default {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       };
-      return numero.toLocaleString('es-ES', opciones); 
+      return numero.toLocaleString('es-ES', opciones);
     },
     traerTransacciones() {
       axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
@@ -112,29 +127,30 @@ export default {
               }
             }
           }
-          if(this.misCryptos.BITCOIN.cantidad == 0){
+          if (this.misCryptos.BITCOIN.cantidad == 0) {
             this.misCryptos.BITCOIN.ganancia = this.misCryptos.BITCOIN.totalCrypto;
-          }else{
-          this.misCryptos.BITCOIN.ganancia = parseFloat((this.misCryptos.BITCOIN.cantidad * this.precioActualBTC.totalBid) - this.misCryptos.BITCOIN.totalCrypto);
+          } else {
+            this.misCryptos.BITCOIN.ganancia = parseFloat((this.misCryptos.BITCOIN.cantidad * this.precioActualBTC.totalBid) - this.misCryptos.BITCOIN.totalCrypto);
           }
-          if(this.misCryptos.ETHEREUM.cantidad == 0) {
+          if (this.misCryptos.ETHEREUM.cantidad == 0) {
             this.misCryptos.ETHEREUM.ganancia = this.misCryptos.ETHEREUM.totalCrypto;
-          }else{
-          this.misCryptos.ETHEREUM.ganancia = parseFloat((this.misCryptos.ETHEREUM.cantidad * this.precioActualETH.totalBid) - this.misCryptos.ETHEREUM.totalCrypto);
+          } else {
+            this.misCryptos.ETHEREUM.ganancia = parseFloat((this.misCryptos.ETHEREUM.cantidad * this.precioActualETH.totalBid) - this.misCryptos.ETHEREUM.totalCrypto);
           }
-          if(this.misCryptos.USDT.cantidad == 0) {
+          if (this.misCryptos.USDT.cantidad == 0) {
             this.misCryptos.USDT.ganancia = this.misCryptos.USDT.totalCrypto;
-          }else{
-          this.misCryptos.USDT.ganancia = parseFloat((this.misCryptos.USDT.cantidad * this.precioActualUSDT.totalBid) - this.misCryptos.USDT.totalCrypto);
+          } else {
+            this.misCryptos.USDT.ganancia = parseFloat((this.misCryptos.USDT.cantidad * this.precioActualUSDT.totalBid) - this.misCryptos.USDT.totalCrypto);
           }
-          if(this.misCryptos.DAI.cantidad == 0) {
+          if (this.misCryptos.DAI.cantidad == 0) {
             this.misCryptos.DAI.ganancia = this.misCryptos.DAI.totalCrypto;
-          }else{
-          this.misCryptos.DAI.ganancia = parseFloat((this.misCryptos.DAI.cantidad * this.precioActualDAI.totalBid) - this.misCryptos.DAI.totalCrypto);
+          } else {
+            this.misCryptos.DAI.ganancia = parseFloat((this.misCryptos.DAI.cantidad * this.precioActualDAI.totalBid) - this.misCryptos.DAI.totalCrypto);
           }
+          this.correcto = true
         })
         .catch(error => {
-          Swal.fire('Error al obtener los datos de la API: '+ error)
+          Swal.fire('Error al obtener los datos de la API: ' + error)
           console.error('Error al obtener los datos:', error);
         });
       axios.get(`https://criptoya.com/api/bitso/btc/ars/0.1`)
@@ -142,7 +158,7 @@ export default {
           this.precioActualBTC = response.data
         })
         .catch(error => {
-          Swal.fire('Error al obtener los datos de la API: '+ error)
+          Swal.fire('Error al obtener los datos de la API: ' + error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -151,7 +167,7 @@ export default {
           this.precioActualETH = response.data
         })
         .catch(error => {
-          Swal.fire('Error al obtener los datos de la API: '+ error)
+          Swal.fire('Error al obtener los datos de la API: ' + error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -160,7 +176,7 @@ export default {
           this.precioActualUSDT = response.data
         })
         .catch(error => {
-          Swal.fire('Error al obtener los datos de la API: '+ error)
+          Swal.fire('Error al obtener los datos de la API: ' + error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -169,7 +185,7 @@ export default {
           this.precioActualDAI = response.data
         })
         .catch(error => {
-          Swal.fire('Error al obtener los datos de la API: '+ error)
+          Swal.fire('Error al obtener los datos de la API: ' + error)
           console.error('Error al obtener los datos:', error);
         });
 

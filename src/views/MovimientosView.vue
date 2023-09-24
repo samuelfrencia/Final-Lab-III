@@ -5,9 +5,9 @@
 
     <!--MIS MOVIMIENTOS-->
     <div class="muestraDatos">
-      <div class="container">
+      <div class="container" >
         <h2 style="text-align: center;">Mis movimientos</h2>
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="correcto">
           <table class="table table-hover">
             <thead>
               <tr>
@@ -137,9 +137,23 @@
             </tbody>
           </table>
         </div>
+        <div class="spinner center" v-else>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+        </div>
       </div>
     </div>
-    <br><br><br><br>
+    <br><br><br><br><br><br><br>
     <!--FOOTER-->
     <FooterView></FooterView>
   </div>
@@ -167,6 +181,7 @@ export default {
         { nombre: "USDT", api: "https://criptoya.com/api/bitso/usdt/ars/0.1" },
         { nombre: "DAI", api: "https://criptoya.com/api/bitso/dai/ars/0.1" },
       ],
+      correcto: false,
     };
   },
   created() {
@@ -208,6 +223,7 @@ export default {
             return transaccion;
 
           });
+          this.correcto = true;
         })
         .catch(error => {
           Swal.fire('Error al obtener los datos de la API: '+ error)
@@ -335,5 +351,6 @@ export default {
   align-items: center;
   /* Centrar horizontalmente */
 }
+
 </style>
   

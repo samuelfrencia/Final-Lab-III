@@ -6,7 +6,7 @@
     <div class="muestraDatos ">
       <div class="container">
         <h2 style="text-align: center;">Mi billetera</h2>
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="correcto">
           <table class="table table-dark text-center">
             <thead>
               <tr>
@@ -29,13 +29,24 @@
             </tbody>
           </table>
         </div>
+        <div class="spinner center" v-else>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+          <div class="spinner-blade"></div>
+        </div>
         <div class="col-md-1"></div>
       </div>
     </div>
-    <hr class="container" style="opacity: 15%;width: 80%;">
     <br>
-    <h4 style="text-align: center;">PROXIMAMENTE GRAFICOS </h4>
-    <!--PROBAR HACER QUE CUANDO SE TOQUE UN BOTON SE MUESTRE EN FORMA DE GRAFICO Y SI LO VOLVES A TOCAR QUE MUESTRE LA TABLA COMO ESTA-->
     <br><br>
     <!--FOOTER-->
     <FooterView></FooterView>
@@ -53,12 +64,13 @@ export default {
     return {
       usuario: '',
       misCryptos: {
-        BITCOIN: { id: 0, nombre: 'BITCOIN', cantidad: 0, totalCrypto: 0},
-        ETHEREUM: { id: 1, nombre: 'ETHEREUM', cantidad: 0, totalCrypto: 0},
-        USDT: { id: 2, nombre: 'USDT', cantidad: 0, totalCrypto: 0},
-        DAI: { id: 3, nombre: 'DAI', cantidad: 0, totalCrypto: 0}
+        BITCOIN: { id: 0, nombre: 'BITCOIN', cantidad: 0, totalCrypto: 0 },
+        ETHEREUM: { id: 1, nombre: 'ETHEREUM', cantidad: 0, totalCrypto: 0 },
+        USDT: { id: 2, nombre: 'USDT', cantidad: 0, totalCrypto: 0 },
+        DAI: { id: 3, nombre: 'DAI', cantidad: 0, totalCrypto: 0 }
       },
       totalSaldoMysCrypto: 0,
+      correcto: false,
     };
   },
   created() {
@@ -75,7 +87,7 @@ export default {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       };
-      return numero.toLocaleString('es-ES', opciones); 
+      return numero.toLocaleString('es-ES', opciones);
     },
     traerTransacciones() {
       axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
@@ -120,32 +132,33 @@ export default {
           if (this.misCryptos.BITCOIN.cantidad > 0) {
             this.misCryptos.BITCOIN.totalCrypto = parseFloat(this.precioActualBTC.totalBid * this.misCryptos.BITCOIN.cantidad);
           }
-          else{
+          else {
             this.misCryptos.BITCOIN.cantidad = 0
           }
           if (this.misCryptos.ETHEREUM.cantidad > 0) {
             this.misCryptos.ETHEREUM.totalCrypto = parseFloat(this.precioActualETH.totalBid * this.misCryptos.ETHEREUM.cantidad);
           }
-          else{
+          else {
             this.misCryptos.ETHEREUM.cantidad = 0
           }
           if (this.misCryptos.USDT.cantidad > 0) {
             this.misCryptos.USDT.totalCrypto = parseFloat(this.precioActualUSDT.totalBid * this.misCryptos.USDT.cantidad);
           }
-          else{
+          else {
             this.misCryptos.USDT.cantidad = 0
           }
           if (this.misCryptos.DAI.cantidad > 0) {
             this.misCryptos.DAI.totalCrypto = parseFloat(this.precioActualDAI.totalBid * this.misCryptos.DAI.cantidad);
           }
-          else{
+          else {
             this.misCryptos.DAI.cantidad = 0
           }
           this.totalSaldoMysCrypto = this.misCryptos.BITCOIN.totalCrypto + this.misCryptos.ETHEREUM.totalCrypto
             + this.misCryptos.USDT.totalCrypto + this.misCryptos.DAI.totalCrypto;
+          this.correcto = true;
         })
         .catch(error => {
-          Swal.fire('Error al obtener los datos de la API: '+ error)
+          Swal.fire('Error al obtener los datos de la API: ' + error)
           console.error('Error al obtener los datos:', error);
         });
       axios.get(`https://criptoya.com/api/bitso/btc/ars/0.1`)
@@ -153,7 +166,7 @@ export default {
           this.precioActualBTC = response.data
         })
         .catch(error => {
-          Swal.fire('Error al obtener los datos de la API: '+ error)
+          Swal.fire('Error al obtener los datos de la API: ' + error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -162,7 +175,7 @@ export default {
           this.precioActualETH = response.data
         })
         .catch(error => {
-          Swal.fire('Error al obtener los datos de la API: '+ error)
+          Swal.fire('Error al obtener los datos de la API: ' + error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -171,7 +184,7 @@ export default {
           this.precioActualUSDT = response.data
         })
         .catch(error => {
-          Swal.fire('Error al obtener los datos de la API: '+ error)
+          Swal.fire('Error al obtener los datos de la API: ' + error)
           console.error('Error al obtener los datos:', error);
         });
 
@@ -180,7 +193,7 @@ export default {
           this.precioActualDAI = response.data
         })
         .catch(error => {
-          Swal.fire('Error al obtener los datos de la API: '+ error)
+          Swal.fire('Error al obtener los datos de la API: ' + error)
           console.error('Error al obtener los datos:', error);
         });
     },
@@ -192,4 +205,5 @@ export default {
 };
 </script>
   
-<style scoped></style>
+<style scoped>
+</style>
