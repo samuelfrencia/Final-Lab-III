@@ -46,8 +46,8 @@
         <div class="col-md-1"></div>
       </div>
     </div>
-    <br>
-    <br><br>
+    <br><br><br>
+    <br><br><br>
     <!--FOOTER-->
     <FooterView></FooterView>
   </div>

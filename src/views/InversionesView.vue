@@ -2,7 +2,7 @@
   <div>
     <!--NAVBAR-->
     <NavbarView></NavbarView>
-    <!--MIS CRYPTOS-->
+    <!--MIS CRYPTOS--> <br>
     <div class="muestraDatos ">
       <div class="container">
         <h2 style="text-align: center;">Analisis de inversiones</h2>
@@ -39,7 +39,7 @@
         <div class="col-md-1"></div>
       </div>
     </div>
-    <br><br>
+    <br><br><br> <br><br><br>
     <!--FOOTER-->
     <FooterView></FooterView>
   </div>
