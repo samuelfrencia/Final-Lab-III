@@ -18,24 +18,26 @@
           </div>
           <div class="cardDatosCryptos col-md-7 container" >
             <h2 style="text-align: center;color: red;">Mercado crypto (Bitso)</h2>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Moneda</th>
-                  <th scope="col">Precio compra</th>
-                  <th scope="col">Precio compra final</th>
-                  <th scope="col">Precio venta final</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="moneda in monedas" :key="moneda.id">
-                  <td>{{ moneda.nombre }}</td>
-                  <td>{{ formatearNumero(moneda.precioCompra) }}</td>
-                  <td>{{ formatearNumero(moneda.precioCompraFinal) }}</td>
-                  <td>{{ formatearNumero(moneda.precioVenta) }}</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Moneda</th>
+                    <th scope="col">Precio compra</th>
+                    <th scope="col">Precio compra final</th>
+                    <th scope="col">Precio venta final</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="moneda in monedas" :key="moneda.id">
+                    <td>{{ moneda.nombre }}</td>
+                    <td>{{ formatearNumero(moneda.precioCompra) }}</td>
+                    <td>{{ formatearNumero(moneda.precioCompraFinal) }}</td>
+                    <td>{{ formatearNumero(moneda.precioVenta) }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
