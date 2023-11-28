@@ -90,9 +90,9 @@ export default {
       return numero.toLocaleString('es-ES', opciones);
     },
     traerTransacciones() {
-      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio3-5fc7.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64bdbc3386d8c5613ded91e7'
         },
       })
         .then(response => {
@@ -161,7 +161,7 @@ export default {
           Swal.fire('Error al obtener los datos de la API: ' + error)
           console.error('Error al obtener los datos:', error);
         });
-      axios.get(`https://criptoya.com/api/bitso/btc/ars/0.1`)
+      axios.get(`https://criptoya.com/api/bitsoalpha/btc/ars/0.1`)
         .then(response => {
           this.precioActualBTC = response.data
         })
@@ -170,7 +170,7 @@ export default {
           console.error('Error al obtener los datos:', error);
         });
 
-      axios.get(`https://criptoya.com/api/bitso/ETH/ars/0.1`)
+      axios.get(`https://criptoya.com/api/bitsoalpha/eth/ars/0.1`)
         .then(response => {
           this.precioActualETH = response.data
         })
@@ -179,7 +179,7 @@ export default {
           console.error('Error al obtener los datos:', error);
         });
 
-      axios.get(`https://criptoya.com/api/bitso/usdt/ars/0.1`)
+      axios.get(`https://criptoya.com/api/bitsoalpha/usdt/ars/0.1`)
         .then(response => {
           this.precioActualUSDT = response.data
         })
@@ -188,7 +188,7 @@ export default {
           console.error('Error al obtener los datos:', error);
         });
 
-      axios.get(`https://criptoya.com/api/bitso/dai/ars/0.1`)
+      axios.get(`https://criptoya.com/api/bitsoalpha/dai/ars/0.1`)
         .then(response => {
           this.precioActualDAI = response.data
         })

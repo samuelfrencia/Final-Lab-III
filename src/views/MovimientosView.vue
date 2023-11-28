@@ -201,9 +201,9 @@ export default {
       return numero.toLocaleString('es-ES', opciones); 
     },
     traerTransacciones() {
-      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio3-5fc7.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64bdbc3386d8c5613ded91e7'
         },
       })
         .then(response => {          
@@ -231,9 +231,9 @@ export default {
         });
     },
     eliminarTransaccion(transaccion) {
-      axios.delete(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, {
+      axios.delete(`https://laboratorio3-5fc7.restdb.io/rest/transactions/${transaccion._id}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64bdbc3386d8c5613ded91e7'
         },
       })
         .then(response => {
@@ -249,9 +249,9 @@ export default {
     verTransaccion(transaccion) {
       this.verCrypto = {};
 
-      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, {
+      axios.get(`https://laboratorio3-5fc7.restdb.io/rest/transactions/${transaccion._id}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64bdbc3386d8c5613ded91e7'
         },
       })
         .then(response => {
@@ -281,9 +281,9 @@ export default {
         money: this.verCrypto.money
       }
 
-      axios.patch(`https://laboratorio3-f36a.restdb.io/rest/transactions/${transaccion._id}`, transaccionModificada, {
+      axios.patch(`https://laboratorio3-5fc7.restdb.io/rest/transactions/${transaccion._id}`, transaccionModificada, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64bdbc3386d8c5613ded91e7'
         },
       })
         .then(response => {

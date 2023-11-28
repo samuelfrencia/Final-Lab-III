@@ -66,10 +66,10 @@ export default {
       cantidad: 0,
       criptoSeleccionada: "",
       criptos: [
-        { nombre: "BITCOIN", api: "https://criptoya.com/api/bitso/btc/ars/0.1" },
-        { nombre: "ETHEREUM", api: "https://criptoya.com/api/bitso/ETH/ars/0.1" },
-        { nombre: "USDT", api: "https://criptoya.com/api/bitso/usdt/ars/0.1" },
-        { nombre: "DAI", api: "https://criptoya.com/api/bitso/dai/ars/0.1" },
+        { nombre: "BITCOIN", api: "https://criptoya.com/api/bitsoalpha/btc/ars/0.1" },
+        { nombre: "ETHEREUM", api: "https://criptoya.com/api/bitsoalpha/eth/ars/0.1" },
+        { nombre: "USDT", api: "https://criptoya.com/api/bitsoalpha/usdt/ars/0.1" },
+        { nombre: "DAI", api: "https://criptoya.com/api/bitsoalpha/dai/ars/0.1" },
       ],
       totalCompra: "Precio total",
       cantidadV: 0,
@@ -134,9 +134,9 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio3-5fc7.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '60eb09146661365596af552f',
+              'x-apikey': '64bdbc3386d8c5613ded91e7',
               'Content-Type': 'application/json',
             },
           })
@@ -218,9 +218,9 @@ export default {
           datetime: this.horaCompra,
         }
         axios
-          .post('https://laboratorio3-f36a.restdb.io/rest/transactions', datos, {
+          .post('https://laboratorio3-5fc7.restdb.io/rest/transactions', datos, {
             headers: {
-              'x-apikey': '60eb09146661365596af552f',
+              'x-apikey': '64bdbc3386d8c5613ded91e7',
               'Content-Type': 'application/json',
             },
           })
@@ -245,9 +245,9 @@ export default {
       else { Swal.fire('NO PUEDES VENDER MAS DE LO QUE TIENES') }
     },
     traerTransaccionesVenta() {
-      axios.get(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
+      axios.get(`https://laboratorio3-5fc7.restdb.io/rest/transactions?q={"user_id":"${this.usuario}"}`, {
         headers: {
-          'x-apikey': '60eb09146661365596af552f'
+          'x-apikey': '64bdbc3386d8c5613ded91e7'
         },
       })
         .then(response => {
